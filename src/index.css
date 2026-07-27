@@ -28,6 +28,11 @@ body {
   color: var(--text);
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
 .app-shell {
   min-height: 100vh;
 }
@@ -47,6 +52,19 @@ body {
   width: 100%;
   max-width: 340px;
   text-align: center;
+}
+
+.login-avatar {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-glow);
+  color: var(--accent-light);
 }
 
 .login-card h1 {
@@ -76,6 +94,63 @@ body {
   font-size: 16px;
   letter-spacing: normal;
   text-align: left;
+}
+
+.campo-pin-wrap {
+  position: relative;
+}
+
+.campo-pin-wrap .pin-input {
+  padding-right: 48px;
+}
+
+.campo-icone {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+.campo-com-icone {
+  padding-left: 44px !important;
+}
+
+.btn-olho {
+  position: absolute;
+  right: 6px;
+  top: 0;
+  height: 56px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+}
+
+.ajuda-pin {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .login-erro {
