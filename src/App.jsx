@@ -50,6 +50,7 @@ export default function App() {
 
   function sair() {
     localStorage.removeItem(CHAVE_SESSAO)
+    setTelaAuth('login')
     setUsuario(null)
   }
 
