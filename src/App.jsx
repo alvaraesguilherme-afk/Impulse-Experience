@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Splash from './components/Splash'
 import Login from './components/Login'
+import Cadastro from './components/Cadastro'
 import Home from './components/Home'
 import Staff from './components/Staff'
 import Supervisor from './components/Supervisor'
@@ -31,6 +32,7 @@ function usuarioSalvo() {
 export default function App() {
   const [usuario, setUsuario] = useState(usuarioSalvo)
   const [aba, setAba] = useState('home')
+  const [telaAuth, setTelaAuth] = useState('login')
   const [splash, setSplash] = useState(true)
   const [splashSaindo, setSplashSaindo] = useState(false)
 
@@ -52,7 +54,11 @@ export default function App() {
   }
 
   if (splash) return <Splash saindo={splashSaindo} />
-  if (!usuario) return <Login onLogin={entrar} />
+  if (!usuario) {
+    return telaAuth === 'cadastro'
+      ? <Cadastro onCadastrado={entrar} onVoltar={() => setTelaAuth('login')} />
+      : <Login onLogin={entrar} onCadastrar={() => setTelaAuth('cadastro')} />
+  }
 
   const nav = usuario.is_supervisor ? NAV_SUPERVISOR : NAV_STAFF
 

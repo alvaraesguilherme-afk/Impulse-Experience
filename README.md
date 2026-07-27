@@ -46,9 +46,15 @@ alter table chamada enable row level security;
 create policy "staff select" on staff for select using (true);
 create policy "avisos all" on avisos for all using (true) with check (true);
 create policy "chamada all" on chamada for all using (true) with check (true);
+
+-- Cadastro publico (tela "Criar conta" do app): so permite criar staff comum,
+-- nunca supervisor (isso continua sendo cadastrado manualmente no painel).
+create policy "staff insert publico" on staff
+  for insert
+  with check (is_supervisor = false and ativo = true);
 ```
 
-Depois de criar as tabelas, cadastre a equipe direto no Supabase (Table Editor → `staff`), definindo `nome`, `pin` e `is_supervisor` (true para quem vai enviar avisos e controlar chamada).
+O staff pode se cadastrar sozinho pelo app (nome + PIN). Contas de **supervisor** continuam sendo cadastradas manualmente no Supabase (Table Editor → `staff`, marcando `is_supervisor = true`) — isso é proposital, pra ninguém virar supervisor sozinho.
 
 ## Deploy
 

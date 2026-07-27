@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, onCadastrar }) {
   const [pin, setPin] = useState('')
   const [erro, setErro] = useState('')
   const [carregando, setCarregando] = useState(false)
@@ -48,6 +48,7 @@ export default function Login({ onLogin }) {
             {carregando ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
+        <button className="btn-link" onClick={onCadastrar}>Não tem conta? Cadastre-se</button>
       </div>
     </div>
   )
