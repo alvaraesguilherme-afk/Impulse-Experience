@@ -35,8 +35,8 @@ export default function App() {
   const [splashSaindo, setSplashSaindo] = useState(false)
 
   useEffect(() => {
-    const t1 = setTimeout(() => setSplashSaindo(true), 1400)
-    const t2 = setTimeout(() => setSplash(false), 2000)
+    const t1 = setTimeout(() => setSplashSaindo(true), 2400)
+    const t2 = setTimeout(() => setSplash(false), 3000)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
