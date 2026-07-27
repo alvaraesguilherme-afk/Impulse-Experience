@@ -241,57 +241,6 @@ body {
   padding: 0;
 }
 
-.lista-perfis {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.perfil-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  border-radius: 14px;
-  border: 1px solid var(--border-strong);
-  background: var(--bg-tela);
-  color: var(--text);
-  cursor: pointer;
-  text-align: left;
-}
-
-.perfil-item:hover {
-  border-color: var(--accent-glow);
-}
-
-.perfil-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.perfil-avatar-vazio {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-glow);
-  color: var(--accent-light);
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.perfil-nome {
-  font-size: 15px;
-  font-weight: 600;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -308,6 +257,30 @@ body {
   color: var(--danger);
   margin-bottom: 12px;
   font-size: 14px;
+}
+
+.genero-opcoes {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.genero-btn {
+  flex: 1;
+  padding: 12px 8px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-tela);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.genero-btn-ativo {
+  border-color: var(--accent-glow);
+  background: var(--accent-bg);
+  color: var(--accent-light);
 }
 
 .btn-link {

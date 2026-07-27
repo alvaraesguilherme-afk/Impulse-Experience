@@ -19,6 +19,7 @@ create table staff (
   is_supervisor boolean not null default false,
   ativo boolean not null default true,
   foto_url text,
+  genero text check (genero in ('masculino', 'feminino')),
   created_at timestamptz not null default now()
 );
 

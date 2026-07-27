@@ -6,8 +6,10 @@ const TAMANHO_MAX_FOTO = 5 * 1024 * 1024
 
 export default function Cadastro({ onCadastrado, onVoltar }) {
   const [nome, setNome] = useState('')
+  const [segundoNome, setSegundoNome] = useState('')
   const [pin, setPin] = useState('')
   const [confirmarPin, setConfirmarPin] = useState('')
+  const [genero, setGenero] = useState('')
   const [foto, setFoto] = useState(null)
   const [fotoPreview, setFotoPreview] = useState(null)
   const [erro, setErro] = useState('')
@@ -34,7 +36,11 @@ export default function Cadastro({ onCadastrado, onVoltar }) {
     setErro('')
 
     if (nome.trim().length < 2) {
-      setErro('Digite seu nome completo')
+      setErro('Digite seu nome')
+      return
+    }
+    if (segundoNome.trim().length < 2) {
+      setErro('Digite seu segundo nome')
       return
     }
     if (pin.length < 4) {
@@ -43,6 +49,10 @@ export default function Cadastro({ onCadastrado, onVoltar }) {
     }
     if (pin !== confirmarPin) {
       setErro('As senhas não são iguais')
+      return
+    }
+    if (!genero) {
+      setErro('Escolha Impulse Experience Masculino ou Feminino')
       return
     }
 
@@ -58,9 +68,11 @@ export default function Cadastro({ onCadastrado, onVoltar }) {
       }
     }
 
+    const nomeCompleto = `${nome.trim()} ${segundoNome.trim()}`
+
     const { data, error } = await supabase
       .from('staff')
-      .insert({ nome: nome.trim(), pin, is_supervisor: false, ativo: true, foto_url: fotoUrl })
+      .insert({ nome: nomeCompleto, pin, is_supervisor: false, ativo: true, foto_url: fotoUrl, genero })
       .select('id, nome, is_supervisor, foto_url')
       .single()
     setCarregando(false)
@@ -120,7 +132,24 @@ export default function Cadastro({ onCadastrado, onVoltar }) {
                 autoFocus
                 value={nome}
                 onChange={e => setNome(e.target.value)}
-                placeholder="Seu nome"
+                placeholder="Nome"
+                className="pin-input campo-nome campo-com-icone"
+              />
+            </div>
+            <div className="campo-pin-wrap">
+              <label htmlFor="cadastro-segundo-nome" className="sr-only">Seu segundo nome</label>
+              <span className="campo-icone" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </span>
+              <input
+                id="cadastro-segundo-nome"
+                type="text"
+                value={segundoNome}
+                onChange={e => setSegundoNome(e.target.value)}
+                placeholder="Segundo nome"
                 className="pin-input campo-nome campo-com-icone"
               />
             </div>
@@ -138,6 +167,28 @@ export default function Cadastro({ onCadastrado, onVoltar }) {
               value={confirmarPin}
               onChange={setConfirmarPin}
             />
+
+            <div className="genero-opcoes" role="radiogroup" aria-label="Impulse Experience Masculino ou Feminino">
+              <button
+                type="button"
+                role="radio"
+                aria-checked={genero === 'masculino'}
+                className={`genero-btn ${genero === 'masculino' ? 'genero-btn-ativo' : ''}`}
+                onClick={() => setGenero('masculino')}
+              >
+                Impulse Masculino
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={genero === 'feminino'}
+                className={`genero-btn ${genero === 'feminino' ? 'genero-btn-ativo' : ''}`}
+                onClick={() => setGenero('feminino')}
+              >
+                Impulse Feminino
+              </button>
+            </div>
+
             {erro && <div className="login-erro" role="alert">{erro}</div>}
             <button type="submit" className="btn-primary" disabled={carregando}>
               {carregando ? 'Criando...' : 'Criar conta'}

@@ -6,7 +6,6 @@ import Home from './components/Home'
 import Staff from './components/Staff'
 import Supervisor from './components/Supervisor'
 import NavBar from './components/NavBar'
-import { salvarPerfil } from './lib/perfisLembrados'
 
 const CHAVE_SESSAO = 'impulse_usuario'
 
@@ -46,7 +45,6 @@ export default function App() {
   function entrar(dados, lembrar = true) {
     if (lembrar) {
       localStorage.setItem(CHAVE_SESSAO, JSON.stringify(dados))
-      salvarPerfil(dados)
     }
     setAba(dados.is_supervisor ? 'avisos' : 'home')
     setUsuario(dados)
