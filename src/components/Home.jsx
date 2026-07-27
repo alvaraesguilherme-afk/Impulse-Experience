@@ -16,13 +16,15 @@ export default function Home({ usuario, onSair }) {
           {usuario.foto_url
             ? <img src={usuario.foto_url} alt="" className="topo-avatar" />
             : <span className="topo-avatar topo-avatar-vazio" aria-hidden="true">{usuario.nome.charAt(0).toUpperCase()}</span>}
-          <div>
-            <h2>Olá, {usuario.nome}</h2>
-            <span className="topo-sub">Impulse Experience</span>
-          </div>
+          <h2>Olá, {usuario.nome}</h2>
         </div>
         <button className="btn-sair" onClick={onSair}>Sair</button>
       </header>
+
+      <div className="home-marca">
+        Impulse<br />
+        <span className="home-marca-gradiente">Experience</span>
+      </div>
 
       <section className="secao">
         <h3>Avisos</h3>

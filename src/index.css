@@ -15,6 +15,7 @@
   --success: #4ADE80;
   --nav-bg: rgba(13, 13, 20, 0.98);
   --gradient-text: linear-gradient(90deg, var(--accent-light), #0EA5E9);
+  --font-heading: 'Syne', sans-serif;
 }
 
 * {
@@ -51,6 +52,7 @@ body {
 }
 
 .marca-app {
+  font-family: var(--font-heading);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -138,6 +140,8 @@ body {
 }
 
 .login-card h1 {
+  font-family: var(--font-heading);
+  font-weight: 800;
   font-size: 22px;
   margin-bottom: 4px;
 }
@@ -324,6 +328,9 @@ body {
 }
 
 .topo h2 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 22px;
   margin: 0 0 4px;
 }
 
@@ -355,6 +362,21 @@ body {
   color: var(--accent-light);
   font-weight: 700;
   font-size: 16px;
+}
+
+.home-marca {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+  margin: 22px 0 26px;
+}
+
+.home-marca-gradiente {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .btn-sair {
