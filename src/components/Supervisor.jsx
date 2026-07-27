@@ -3,8 +3,7 @@ import { supabase } from '../lib/supabase'
 
 const hoje = () => new Date().toISOString().slice(0, 10)
 
-export default function Supervisor({ usuario, onSair }) {
-  const [aba, setAba] = useState('avisos')
+export default function Supervisor({ usuario, aba, onSair }) {
   const [avisos, setAvisos] = useState([])
   const [textoAviso, setTextoAviso] = useState('')
   const [equipe, setEquipe] = useState([])
@@ -54,21 +53,17 @@ export default function Supervisor({ usuario, onSair }) {
 
   const ausentes = equipe.filter(p => chamada[p.nome] === 'ausente')
 
+  const titulos = { avisos: 'Avisos', chamada: 'Chamada', faltas: 'Faltas' }
+
   return (
     <div className="tela">
       <header className="topo">
         <div>
-          <h2>Painel do Supervisor</h2>
+          <h2>{titulos[aba]}</h2>
           <span className="topo-sub">{usuario.nome}</span>
         </div>
         <button className="btn-sair" onClick={onSair}>Sair</button>
       </header>
-
-      <nav className="tabs">
-        <button className={aba === 'avisos' ? 'tab-ativa' : ''} onClick={() => setAba('avisos')}>Avisos</button>
-        <button className={aba === 'chamada' ? 'tab-ativa' : ''} onClick={() => setAba('chamada')}>Chamada</button>
-        <button className={aba === 'faltas' ? 'tab-ativa' : ''} onClick={() => setAba('faltas')}>Faltas</button>
-      </nav>
 
       {aba === 'avisos' && (
         <section className="secao">
