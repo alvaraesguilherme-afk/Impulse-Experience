@@ -1,0 +1,292 @@
+:root {
+  --bg-tela: #0B0B14;
+  --bg-card: #16161F;
+  --border: #232330;
+  --border-strong: #2C2C3A;
+  --text: #F5F5F7;
+  --text-secondary: #C7C7D1;
+  --text-muted: #9494A3;
+  --text-faint: #6B6B78;
+  --accent: #7C5CFC;
+  --accent-light: #A78BFA;
+  --accent-bg: rgba(124, 92, 252, 0.12);
+  --accent-glow: rgba(124, 92, 252, 0.35);
+  --danger: #F87171;
+  --success: #4ADE80;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bg-tela);
+  color: var(--text);
+}
+
+.tela {
+  min-height: 100vh;
+  padding: 24px 20px 60px;
+}
+
+.tela-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+}
+
+.login-card h1 {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.login-sub {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.pin-input {
+  width: 100%;
+  font-size: 24px;
+  letter-spacing: 8px;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.login-erro {
+  color: var(--danger);
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.topo h2 {
+  margin: 0 0 4px;
+}
+
+.topo-sub {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.btn-sair {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.secao {
+  margin-bottom: 28px;
+}
+
+.secao h3 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+}
+
+.secao-sub {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.vazio {
+  color: var(--text-faint);
+  font-size: 14px;
+}
+
+.lista-avisos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aviso-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.aviso-item p {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.aviso-data {
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.aviso-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-apagar {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  font-size: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 6px 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.chip-lider {
+  border-color: var(--accent-glow);
+  color: var(--accent-light);
+}
+
+.chip-ausente {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.tab-ativa {
+  background: var(--accent-bg) !important;
+  border-color: var(--accent-glow) !important;
+  color: var(--accent-light) !important;
+}
+
+.form-aviso {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-aviso textarea {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: inherit;
+  resize: vertical;
+}
+
+.lista-chamada {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chamada-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.chamada-botoes {
+  display: flex;
+  gap: 6px;
+}
+
+.chamada-botoes button {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-presente.ativo {
+  background: rgba(74, 222, 128, 0.15);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.btn-ausente.ativo {
+  background: rgba(248, 113, 113, 0.15);
+  border-color: var(--danger);
+  color: var(--danger);
+}
