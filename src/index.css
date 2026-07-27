@@ -44,31 +44,101 @@ body {
 
 .tela-login {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+}
+
+.marca-app {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.login-card-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+}
+
+.login-avatar-topo {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--bg-tela);
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.login-avatar-clicavel {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.login-avatar-clicavel:hover {
+  border-color: var(--accent-glow);
+}
+
+.login-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.login-avatar-editar {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-tela);
+  color: white;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .login-card {
-  width: 100%;
-  max-width: 340px;
+  position: relative;
+  overflow: hidden;
   text-align: center;
+  background: rgba(22, 22, 31, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 26px;
+  padding: 46px 26px 30px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
 }
 
-.login-avatar {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-glow);
-  color: var(--accent-light);
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -35%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.10), transparent 70%);
+  pointer-events: none;
 }
 
 .login-card h1 {
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 4px;
 }
 
@@ -79,15 +149,19 @@ body {
 
 .pin-input {
   width: 100%;
-  font-size: 24px;
-  letter-spacing: 8px;
-  text-align: center;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-align: left;
   padding: 14px;
   border-radius: 14px;
   border: 1px solid var(--border-strong);
-  background: var(--bg-card);
+  background: var(--bg-tela);
   color: var(--text);
   margin-bottom: 16px;
+}
+
+.pin-input::placeholder {
+  color: var(--text-faint);
 }
 
 .campo-nome {
@@ -106,17 +180,22 @@ body {
 
 .campo-icone {
   position: absolute;
-  left: 16px;
-  top: 0;
-  height: 56px;
+  left: 1px;
+  top: 1px;
+  bottom: 17px;
+  width: 46px;
   display: flex;
   align-items: center;
-  color: var(--text-faint);
+  justify-content: center;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-strong);
+  border-radius: 13px 0 0 13px;
+  color: var(--text-muted);
   pointer-events: none;
 }
 
 .campo-com-icone {
-  padding-left: 44px !important;
+  padding-left: 58px !important;
 }
 
 .btn-olho {
@@ -139,6 +218,38 @@ body {
   font-size: 12px;
   text-align: center;
   margin-top: 8px;
+}
+
+.login-opcoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+.check-lembrar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.check-lembrar input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.link-esqueci {
+  background: none;
+  border: none;
+  color: var(--accent-light);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0;
 }
 
 .sr-only {
@@ -186,6 +297,12 @@ body {
   cursor: default;
 }
 
+.login-card .btn-primary {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 14px;
+}
+
 .topo {
   display: flex;
   align-items: center;
@@ -200,6 +317,31 @@ body {
 .topo-sub {
   color: var(--text-muted);
   font-size: 13px;
+}
+
+.topo-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topo-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.topo-avatar-vazio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-glow);
+  color: var(--accent-light);
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .btn-sair {

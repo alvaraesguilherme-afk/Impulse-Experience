@@ -42,8 +42,10 @@ export default function App() {
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
 
-  function entrar(dados) {
-    localStorage.setItem(CHAVE_SESSAO, JSON.stringify(dados))
+  function entrar(dados, lembrar = true) {
+    if (lembrar) {
+      localStorage.setItem(CHAVE_SESSAO, JSON.stringify(dados))
+    }
     setAba(dados.is_supervisor ? 'avisos' : 'home')
     setUsuario(dados)
   }

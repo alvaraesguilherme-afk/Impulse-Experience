@@ -1,6 +1,6 @@
 # Impulse Experience
 
-App de staff para evento menor — login por PIN, avisos e chamada. Stack: React + Vite + Supabase.
+App de staff para evento menor — login por nome + senha, avisos e chamada. Stack: React + Vite + Supabase.
 
 ## Setup
 
@@ -18,6 +18,7 @@ create table staff (
   pin text not null unique,
   is_supervisor boolean not null default false,
   ativo boolean not null default true,
+  foto_url text,
   created_at timestamptz not null default now()
 );
 
@@ -52,9 +53,22 @@ create policy "chamada all" on chamada for all using (true) with check (true);
 create policy "staff insert publico" on staff
   for insert
   with check (is_supervisor = false and ativo = true);
+
+-- Bucket de storage para foto de perfil escolhida no cadastro
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true)
+on conflict (id) do update set public = true;
+
+create policy "avatars leitura publica" on storage.objects
+  for select
+  using (bucket_id = 'avatars');
+
+create policy "avatars upload publico" on storage.objects
+  for insert
+  with check (bucket_id = 'avatars');
 ```
 
-O staff pode se cadastrar sozinho pelo app (nome + PIN). Contas de **supervisor** continuam sendo cadastradas manualmente no Supabase (Table Editor → `staff`, marcando `is_supervisor = true`) — isso é proposital, pra ninguém virar supervisor sozinho.
+O staff pode se cadastrar sozinho pelo app (nome + senha + foto opcional). Contas de **supervisor** continuam sendo cadastradas manualmente no Supabase (Table Editor → `staff`, marcando `is_supervisor = true`) — isso é proposital, pra ninguém virar supervisor sozinho. Login é feito com nome + senha (a senha é o mesmo campo `pin` no banco).
 
 ## Deploy
 
