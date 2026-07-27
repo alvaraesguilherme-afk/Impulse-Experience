@@ -13,7 +13,7 @@
   --accent-glow: rgba(124, 92, 252, 0.35);
   --danger: #F87171;
   --success: #4ADE80;
-  --nav-bg: rgba(11, 11, 20, 0.92);
+  --nav-bg: rgba(13, 13, 20, 0.98);
   --gradient-text: linear-gradient(90deg, var(--accent-light), #0EA5E9);
 }
 
@@ -318,13 +318,15 @@ body {
 .splash-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(60px);
+  opacity: 0.35;
   animation: splashGlow 2s ease-in-out infinite alternate;
+  will-change: opacity;
 }
 
 @keyframes splashGlow {
-  from { opacity: 0.2; transform: scale(0.9); }
-  to { opacity: 0.5; transform: scale(1.1); }
+  from { opacity: 0.2; }
+  to { opacity: 0.45; }
 }
 
 .splash-logo {
@@ -389,8 +391,6 @@ body {
   max-width: 480px;
   display: flex;
   background: var(--nav-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-top: 1px solid var(--border);
   padding: 10px 6px 28px;
   z-index: 50;
