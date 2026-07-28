@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import GrupoSwitcher from './GrupoSwitcher'
 
-export default function Supervisor({ usuario, grupoAtivo, podeAlternarGrupo, onMudarGrupo }) {
+export default function Supervisor({ usuario, grupoAtivo }) {
   const [avisos, setAvisos] = useState([])
   const [textoAviso, setTextoAviso] = useState('')
 
@@ -33,8 +32,6 @@ export default function Supervisor({ usuario, grupoAtivo, podeAlternarGrupo, onM
       <header className="topo topo-minimal">
         <h2>Avisos</h2>
       </header>
-
-      {podeAlternarGrupo && <GrupoSwitcher grupo={grupoAtivo} onMudar={onMudarGrupo} />}
 
       <section className="secao">
         <form onSubmit={enviarAviso} className="form-aviso">

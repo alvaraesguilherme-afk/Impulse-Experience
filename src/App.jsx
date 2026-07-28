@@ -13,7 +13,7 @@ const CHAVE_SESSAO = 'impulse_usuario'
 const CHAVE_GRUPO = 'impulse_grupo_ativo'
 
 const NAV_STAFF = [
-  { id: 'home', label: 'Início' },
+  { id: 'home', label: 'Home' },
   { id: 'staff', label: 'Equipe' },
   { id: 'perfil', label: 'Perfil' },
   { id: 'config', label: 'Config' },
@@ -90,12 +90,12 @@ export default function App() {
       return <Config usuario={usuario} onSair={sair} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
     }
     if (usuario.is_supervisor) {
-      return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
+      return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} />
     }
     if (aba === 'staff') {
-      return <Staff grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
+      return <Staff grupoAtivo={grupoAtivo} />
     }
-    return <Home usuario={usuario} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
+    return <Home usuario={usuario} grupoAtivo={grupoAtivo} />
   }
 
   return (

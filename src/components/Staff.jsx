@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
-import GrupoSwitcher from './GrupoSwitcher'
 
-export default function Staff({ grupoAtivo, podeAlternarGrupo, onMudarGrupo }) {
+export default function Staff({ grupoAtivo }) {
   const [equipe, setEquipe] = useState([])
 
   useEffect(() => {
@@ -18,8 +17,6 @@ export default function Staff({ grupoAtivo, podeAlternarGrupo, onMudarGrupo }) {
           <span className="topo-sub">{equipe.length} pessoas</span>
         </div>
       </header>
-
-      {podeAlternarGrupo && <GrupoSwitcher grupo={grupoAtivo} onMudar={onMudarGrupo} />}
 
       <section className="secao">
         <div className="chips">
