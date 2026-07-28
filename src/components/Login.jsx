@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import PinField from './PinField'
 
-export default function Login({ onLogin, onCadastrar }) {
+export default function Login({ onLogin, onCadastrar, onTrocarGrupo }) {
   const [nomes, setNomes] = useState([])
   const [nome, setNome] = useState('')
   const [senha, setSenha] = useState('')
@@ -65,7 +65,10 @@ export default function Login({ onLogin, onCadastrar }) {
 
   return (
     <div className="tela tela-login">
-      <div className="marca-app">Impulse Experience</div>
+      <div className="topo-marca-wrap">
+        <div className="marca-app">Impulse Experience</div>
+        <button type="button" className="link-trocar-grupo" onClick={onTrocarGrupo}>Trocar grupo</button>
+      </div>
       <div className="login-card-wrap">
         <div className="login-avatar-topo" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

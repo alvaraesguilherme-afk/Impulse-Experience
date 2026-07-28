@@ -4,12 +4,12 @@ import PinField from './PinField'
 
 const TAMANHO_MAX_FOTO = 5 * 1024 * 1024
 
-export default function Cadastro({ onCadastrado, onVoltar }) {
+export default function Cadastro({ onCadastrado, onVoltar, generoPreferido, onTrocarGrupo }) {
   const [nome, setNome] = useState('')
   const [segundoNome, setSegundoNome] = useState('')
   const [pin, setPin] = useState('')
   const [confirmarPin, setConfirmarPin] = useState('')
-  const [genero, setGenero] = useState('')
+  const [genero, setGenero] = useState(generoPreferido || '')
   const [foto, setFoto] = useState(null)
   const [fotoPreview, setFotoPreview] = useState(null)
   const [erro, setErro] = useState('')
@@ -86,7 +86,10 @@ export default function Cadastro({ onCadastrado, onVoltar }) {
 
   return (
     <div className="tela tela-login">
-      <div className="marca-app">Impulse Experience</div>
+      <div className="topo-marca-wrap">
+        <div className="marca-app">Impulse Experience</div>
+        <button type="button" className="link-trocar-grupo" onClick={onTrocarGrupo}>Trocar grupo</button>
+      </div>
       <div className="login-card-wrap">
         <label htmlFor="cadastro-foto" className="login-avatar-topo login-avatar-clicavel">
           {fotoPreview ? (

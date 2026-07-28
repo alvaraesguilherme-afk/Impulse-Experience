@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
-import { aplicarPreferencias } from './lib/preferencias'
+import { aplicarPreferencias, grupoPreviewSalvo, setGrupoPreview, limparGrupoPreview } from './lib/preferencias'
 import Splash from './components/Splash'
+import SeletorGrupo from './components/SeletorGrupo'
 import Login from './components/Login'
 import Cadastro from './components/Cadastro'
 import Home from './components/Home'
@@ -44,6 +45,7 @@ function grupoInicial(usuario) {
 export default function App() {
   const [usuario, setUsuario] = useState(usuarioSalvo)
   const [grupoAtivo, setGrupoAtivo] = useState(() => grupoInicial(usuarioSalvo()))
+  const [grupoPreview, setGrupoPreviewLocal] = useState(grupoPreviewSalvo)
   const [aba, setAba] = useState('home')
   const [telaAuth, setTelaAuth] = useState('login')
   const [splash, setSplash] = useState(true)
@@ -70,6 +72,19 @@ export default function App() {
     localStorage.removeItem(CHAVE_SESSAO)
     setTelaAuth('login')
     setUsuario(null)
+    aplicarPreferencias()
+  }
+
+  function escolherGrupoPreview(grupo) {
+    setGrupoPreview(grupo)
+    setGrupoPreviewLocal(grupo)
+    aplicarPreferencias(grupo)
+  }
+
+  function trocarGrupoPreview() {
+    limparGrupoPreview()
+    setGrupoPreviewLocal(undefined)
+    setTelaAuth('login')
     aplicarPreferencias(undefined)
   }
 
@@ -108,9 +123,10 @@ export default function App() {
 
   if (splash) return <Splash saindo={splashSaindo} />
   if (!usuario) {
+    if (!grupoPreview) return <SeletorGrupo onEscolher={escolherGrupoPreview} />
     return telaAuth === 'cadastro'
-      ? <Cadastro onCadastrado={entrar} onVoltar={() => setTelaAuth('login')} />
-      : <Login onLogin={entrar} onCadastrar={() => setTelaAuth('cadastro')} />
+      ? <Cadastro generoPreferido={grupoPreview} onCadastrado={entrar} onVoltar={() => setTelaAuth('login')} onTrocarGrupo={trocarGrupoPreview} />
+      : <Login onLogin={entrar} onCadastrar={() => setTelaAuth('cadastro')} onTrocarGrupo={trocarGrupoPreview} />
   }
 
   const nav = usuario.is_supervisor ? NAV_SUPERVISOR : NAV_STAFF

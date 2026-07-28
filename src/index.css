@@ -97,6 +97,70 @@ body {
   color: var(--text-faint);
 }
 
+.topo-marca-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.link-trocar-grupo {
+  background: none;
+  border: none;
+  color: var(--accent-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.selecao-grupo-card h1 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.selecao-grupo-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.selecao-grupo-btn {
+  padding: 22px 18px;
+  border-radius: 18px;
+  border: none;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.selecao-grupo-btn-feminino {
+  background: #FFFFFF;
+  color: #C2185B;
+  box-shadow: 0 10px 24px rgba(219, 39, 119, 0.25), inset 0 0 0 1px rgba(219, 39, 119, 0.2);
+}
+
+.selecao-grupo-btn-masculino {
+  background: #000000;
+  color: #FB923C;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(234, 88, 12, 0.4);
+}
+
+.selecao-grupo-btn-selecionado {
+  outline: 3px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+.selecao-grupo-continuar {
+  margin-top: 18px;
+}
+
 .login-card-wrap {
   position: relative;
   width: 100%;
