@@ -2,10 +2,55 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import Perfil from './Perfil'
 
+const MODULOS = [
+  {
+    id: 'apoio',
+    nome: 'Apoio',
+    desc: 'Recepção, chamada e tarefas',
+    icone: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+  },
+  {
+    id: 'intercessao',
+    nome: 'Intercessão',
+    desc: 'Escala de oração do culto',
+    icone: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 21c-4-3-8-6.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4.5-4 8-8 11z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'midia',
+    nome: 'Mídia',
+    desc: 'Fotos, vídeo e transmissão',
+    icone: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="23 7 16 12 23 17 23 7" /><rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+      </svg>
+    ),
+  },
+  {
+    id: 'templo',
+    nome: 'Templo',
+    desc: 'Montagem e organização',
+    icone: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 21h18" /><path d="M5 21V10l7-6 7 6v11" /><path d="M9 21v-6h6v6" />
+      </svg>
+    ),
+  },
+]
+
 export default function Home({ usuario, grupoAtivo }) {
   const [equipe, setEquipe] = useState([])
   const [aberto, setAberto] = useState(false)
   const [selecionado, setSelecionado] = useState(null)
+  const [modulo, setModulo] = useState(null)
 
   useEffect(() => {
     supabase.from('staff').select('nome, foto_url, is_supervisor, genero').eq('ativo', true).in('genero', [grupoAtivo, 'ambos']).order('nome')
@@ -14,6 +59,25 @@ export default function Home({ usuario, grupoAtivo }) {
 
   if (selecionado) {
     return <Perfil usuario={selecionado} onVoltar={() => setSelecionado(null)} />
+  }
+
+  if (modulo) {
+    return (
+      <div className="tela">
+        <header className="topo topo-minimal">
+          <div className="topo-com-voltar">
+            <button className="btn-voltar" onClick={() => setModulo(null)} aria-label="Voltar">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <h2>{modulo.nome}</h2>
+          </div>
+        </header>
+        <p className="secao-sub">{modulo.desc}</p>
+        <p className="vazio">Essa área ainda está em construção.</p>
+      </div>
+    )
   }
 
   return (
@@ -31,6 +95,21 @@ export default function Home({ usuario, grupoAtivo }) {
         Impulse<br />
         <span className="home-marca-gradiente">Experience</span>
       </div>
+
+      <section className="secao">
+        <h3>Módulos</h3>
+        <div className={`modulos-lista modulos-${grupoAtivo}`}>
+          {MODULOS.map(m => (
+            <button key={m.id} className="modulo-linha" onClick={() => setModulo(m)}>
+              <span className="modulo-icone" aria-hidden="true">{m.icone}</span>
+              <span className="modulo-texto">
+                <span className="modulo-titulo">{m.nome}</span>
+                <span className="modulo-desc">{m.desc}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </section>
 
       <section className="secao">
         <div className={`equipe-card ${aberto ? 'equipe-card-aberto' : ''}`}>
