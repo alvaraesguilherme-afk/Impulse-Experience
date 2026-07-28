@@ -404,6 +404,61 @@ body {
   cursor: pointer;
 }
 
+.perfil-secao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding-top: 8px;
+  margin-bottom: 28px;
+}
+
+.perfil-avatar-grande {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  font-size: 32px;
+}
+
+.perfil-nome-grande {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 22px;
+  margin: 0;
+}
+
+.config-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.config-linha:last-of-type {
+  border-bottom: none;
+}
+
+.config-valor {
+  color: var(--text-muted);
+}
+
+.link-sair {
+  display: block;
+  margin: 8px auto 0;
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .secao {
   margin-bottom: 28px;
 }
@@ -488,35 +543,6 @@ body {
   color: var(--accent-light);
 }
 
-.chip-ausente {
-  border-color: var(--danger);
-  color: var(--danger);
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.tabs button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px solid var(--border-strong);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.tab-ativa {
-  background: var(--accent-bg) !important;
-  border-color: var(--accent-glow) !important;
-  color: var(--accent-light) !important;
-}
-
 .form-aviso {
   display: flex;
   flex-direction: column;
@@ -532,53 +558,6 @@ body {
   color: var(--text);
   font-family: inherit;
   resize: vertical;
-}
-
-.lista-chamada {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.chamada-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 14px;
-}
-
-.chamada-botoes {
-  display: flex;
-  gap: 6px;
-}
-
-.chamada-botoes button {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border-strong);
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.btn-presente.ativo {
-  background: rgba(74, 222, 128, 0.15);
-  border-color: var(--success);
-  color: var(--success);
-}
-
-.btn-ausente.ativo {
-  background: rgba(248, 113, 113, 0.15);
-  border-color: var(--danger);
-  color: var(--danger);
 }
 
 /* Splash */

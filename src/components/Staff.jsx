@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 
-export default function Staff({ onSair }) {
+export default function Staff() {
   const [equipe, setEquipe] = useState([])
 
   useEffect(() => {
@@ -11,12 +11,11 @@ export default function Staff({ onSair }) {
 
   return (
     <div className="tela">
-      <header className="topo">
+      <header className="topo topo-minimal">
         <div>
           <h2>Equipe</h2>
           <span className="topo-sub">{equipe.length} pessoas</span>
         </div>
-        <button className="btn-sair" onClick={onSair}>Sair</button>
       </header>
 
       <section className="secao">

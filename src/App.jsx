@@ -5,6 +5,8 @@ import Cadastro from './components/Cadastro'
 import Home from './components/Home'
 import Staff from './components/Staff'
 import Supervisor from './components/Supervisor'
+import Perfil from './components/Perfil'
+import Config from './components/Config'
 import NavBar from './components/NavBar'
 
 const CHAVE_SESSAO = 'impulse_usuario'
@@ -12,12 +14,14 @@ const CHAVE_SESSAO = 'impulse_usuario'
 const NAV_STAFF = [
   { id: 'home', label: 'Início' },
   { id: 'staff', label: 'Equipe' },
+  { id: 'perfil', label: 'Perfil' },
+  { id: 'config', label: 'Config' },
 ]
 
 const NAV_SUPERVISOR = [
   { id: 'avisos', label: 'Avisos' },
-  { id: 'chamada', label: 'Chamada' },
-  { id: 'faltas', label: 'Faltas' },
+  { id: 'perfil', label: 'Perfil' },
+  { id: 'config', label: 'Config' },
 ]
 
 function usuarioSalvo() {
@@ -65,14 +69,17 @@ export default function App() {
 
   const nav = usuario.is_supervisor ? NAV_SUPERVISOR : NAV_STAFF
 
+  function conteudo() {
+    if (aba === 'perfil') return <Perfil usuario={usuario} />
+    if (aba === 'config') return <Config usuario={usuario} onSair={sair} />
+    if (usuario.is_supervisor) return <Supervisor usuario={usuario} />
+    if (aba === 'staff') return <Staff />
+    return <Home usuario={usuario} />
+  }
+
   return (
     <div className="app-shell">
-      {usuario.is_supervisor
-        ? <Supervisor usuario={usuario} aba={aba} onSair={sair} />
-        : aba === 'staff'
-          ? <Staff onSair={sair} />
-          : <Home usuario={usuario} onSair={sair} />}
-
+      {conteudo()}
       <NavBar itens={nav} ativa={aba} onMudar={setAba} />
     </div>
   )

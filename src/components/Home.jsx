@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 
-export default function Home({ usuario, onSair }) {
+export default function Home({ usuario }) {
   const [avisos, setAvisos] = useState([])
 
   useEffect(() => {
@@ -18,7 +18,6 @@ export default function Home({ usuario, onSair }) {
             : <span className="topo-avatar topo-avatar-pequeno topo-avatar-vazio" aria-hidden="true">{usuario.nome.charAt(0).toUpperCase()}</span>}
           <span className="topo-saudacao">Olá, {usuario.nome}</span>
         </div>
-        <button className="btn-sair" onClick={onSair}>Sair</button>
       </header>
 
       <div className="home-marca">
