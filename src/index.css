@@ -492,10 +492,31 @@ body {
 }
 
 .equipe-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  position: relative;
   overflow: hidden;
+  background: rgba(22, 22, 31, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+.equipe-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -35%;
+  width: 75%;
+  height: 75%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+[data-tema="claro"] .equipe-card {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
 }
 
 .equipe-card-cabeca {

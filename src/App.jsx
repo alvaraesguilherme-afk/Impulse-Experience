@@ -3,7 +3,6 @@ import Splash from './components/Splash'
 import Login from './components/Login'
 import Cadastro from './components/Cadastro'
 import Home from './components/Home'
-import Staff from './components/Staff'
 import Supervisor from './components/Supervisor'
 import Perfil from './components/Perfil'
 import Config from './components/Config'
@@ -14,7 +13,6 @@ const CHAVE_GRUPO = 'impulse_grupo_ativo'
 
 const NAV_STAFF = [
   { id: 'home', label: 'Home' },
-  { id: 'staff', label: 'Equipe' },
   { id: 'perfil', label: 'Perfil' },
   { id: 'config', label: 'Config' },
 ]
@@ -90,10 +88,9 @@ export default function App() {
     if (aba === 'config') {
       return <Config usuario={usuario} onSair={sair} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
     }
-    if (aba === 'home') return <Home usuario={usuario} />
-    if (aba === 'staff') return <Staff grupoAtivo={grupoAtivo} />
+    if (aba === 'home') return <Home usuario={usuario} grupoAtivo={grupoAtivo} />
     if (usuario.is_supervisor) return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} />
-    return <Home usuario={usuario} />
+    return <Home usuario={usuario} grupoAtivo={grupoAtivo} />
   }
 
   return (
