@@ -86,7 +86,9 @@ export default function App() {
 
   function conteudo() {
     if (aba === 'perfil') return <Perfil usuario={usuario} />
-    if (aba === 'config') return <Config usuario={usuario} onSair={sair} />
+    if (aba === 'config') {
+      return <Config usuario={usuario} onSair={sair} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
+    }
     if (usuario.is_supervisor) {
       return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
     }

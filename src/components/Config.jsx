@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { TEMAS, CORES, getTema, getAccent, setTema, setAccent } from '../lib/preferencias'
+import GrupoSwitcher from './GrupoSwitcher'
 
 const VERSAO_APP = '1.0.0'
 
-export default function Config({ usuario, onSair }) {
+export default function Config({ usuario, onSair, grupoAtivo, podeAlternarGrupo, onMudarGrupo }) {
   const [tema, setTemaState] = useState(getTema)
   const [accent, setAccentState] = useState(getAccent)
 
@@ -30,6 +31,14 @@ export default function Config({ usuario, onSair }) {
           <span className="config-valor">{usuario.nome}</span>
         </div>
       </section>
+
+      {podeAlternarGrupo && (
+        <section className="secao">
+          <h3>Grupo</h3>
+          <p className="secao-sub">Você tem acesso aos dois — escolha qual área ver agora.</p>
+          <GrupoSwitcher grupo={grupoAtivo} onMudar={onMudarGrupo} />
+        </section>
+      )}
 
       <section className="secao">
         <h3>Aparência</h3>
