@@ -18,56 +18,38 @@
   --font-heading: 'Syne', sans-serif;
 }
 
-[data-tema="claro"] {
-  --bg-tela: #F2F2F5;
+[data-grupo="feminino"] {
+  --bg-tela: #FFFFFF;
   --bg-card: #FFFFFF;
-  --border: #E4E4E9;
-  --border-strong: #D4D4DB;
-  --text: #131316;
-  --text-secondary: #3F3F46;
-  --text-muted: #6C6C75;
-  --text-faint: #9C9CA5;
-  --nav-bg: rgba(255, 255, 255, 0.96);
-}
-
-[data-accent="azul"] {
-  --accent: #2563EB;
-  --accent-light: #60A5FA;
-  --accent-bg: rgba(96, 165, 250, 0.14);
-  --accent-glow: rgba(96, 165, 250, 0.35);
-  --gradient-text: linear-gradient(90deg, #60A5FA, #22D3EE);
-}
-
-[data-accent="verde"] {
-  --accent: #16A34A;
-  --accent-light: #4ADE80;
-  --accent-bg: rgba(74, 222, 128, 0.14);
-  --accent-glow: rgba(74, 222, 128, 0.35);
-  --gradient-text: linear-gradient(90deg, #4ADE80, #22D3EE);
-}
-
-[data-accent="rosa"] {
-  --accent: #DB2777;
+  --border: #F5D9E7;
+  --border-strong: #F0B8D6;
+  --text: #1F1220;
+  --text-secondary: #4A2E3B;
+  --text-muted: #9D5A78;
+  --text-faint: #C48AA8;
+  --accent: #EC4899;
   --accent-light: #F472B6;
-  --accent-bg: rgba(244, 114, 182, 0.14);
-  --accent-glow: rgba(244, 114, 182, 0.35);
-  --gradient-text: linear-gradient(90deg, #F472B6, #A78BFA);
+  --accent-bg: rgba(236, 72, 153, 0.12);
+  --accent-glow: rgba(236, 72, 153, 0.35);
+  --nav-bg: rgba(255, 255, 255, 0.96);
+  --gradient-text: linear-gradient(90deg, #EC4899, #F472B6);
 }
 
-[data-accent="laranja"] {
+[data-grupo="masculino"] {
+  --bg-tela: #000000;
+  --bg-card: #0D0D0D;
+  --border: #1F1F1F;
+  --border-strong: #2A2A2A;
+  --text: #F5F5F7;
+  --text-secondary: #C7C7D1;
+  --text-muted: #8A8A8A;
+  --text-faint: #5C5C5C;
   --accent: #EA580C;
   --accent-light: #FB923C;
-  --accent-bg: rgba(251, 146, 60, 0.14);
-  --accent-glow: rgba(251, 146, 60, 0.35);
+  --accent-bg: rgba(234, 88, 12, 0.14);
+  --accent-glow: rgba(234, 88, 12, 0.35);
+  --nav-bg: rgba(0, 0, 0, 0.98);
   --gradient-text: linear-gradient(90deg, #FB923C, #FACC15);
-}
-
-[data-accent="vermelho"] {
-  --accent: #DC2626;
-  --accent-light: #F87171;
-  --accent-bg: rgba(248, 113, 113, 0.14);
-  --accent-glow: rgba(248, 113, 113, 0.35);
-  --gradient-text: linear-gradient(90deg, #F87171, #FB923C);
 }
 
 * {
@@ -180,7 +162,7 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
 }
 
-[data-tema="claro"] .login-card {
+[data-grupo="feminino"] .login-card {
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
@@ -565,6 +547,9 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-glow);
+  color: var(--accent);
 }
 
 .modulo-icone svg {
@@ -586,35 +571,6 @@ body {
   font-size: 11.5px;
   color: var(--text-muted);
   margin-top: 1px;
-}
-
-.modulos-masculino .modulo-icone {
-  background: rgba(56, 189, 248, 0.14);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: #38BDF8;
-}
-
-.modulos-feminino {
-  background: #FFFFFF;
-  border-color: rgba(219, 39, 119, 0.18);
-}
-
-.modulos-feminino .modulo-linha {
-  border-top-color: rgba(219, 39, 119, 0.14);
-}
-
-.modulos-feminino .modulo-titulo {
-  color: #1F1220;
-}
-
-.modulos-feminino .modulo-desc {
-  color: #9D5A78;
-}
-
-.modulos-feminino .modulo-icone {
-  background: #EC4899;
-  border: none;
-  color: #FFFFFF;
 }
 
 .equipe-card {
@@ -639,7 +595,7 @@ body {
   pointer-events: none;
 }
 
-[data-tema="claro"] .equipe-card {
+[data-grupo="feminino"] .equipe-card {
   background: rgba(255, 255, 255, 0.65);
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
@@ -796,7 +752,6 @@ body {
 }
 
 .config-bloco .genero-opcoes,
-.config-bloco .aparencia-swatches,
 .config-bloco .grupo-switcher {
   margin-bottom: 0;
 }
@@ -853,26 +808,6 @@ body {
 @keyframes girar {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-.aparencia-swatches {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.swatch {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
-  padding: 0;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
-}
-
-.swatch-ativo {
-  border-color: var(--text);
 }
 
 .link-sair {
