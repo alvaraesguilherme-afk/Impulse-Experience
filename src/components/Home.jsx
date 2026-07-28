@@ -98,9 +98,9 @@ export default function Home({ usuario, grupoAtivo }) {
 
       <section className="secao">
         <h3>Módulos</h3>
-        <div className={`modulos-lista modulos-${grupoAtivo}`}>
+        <div className={`modulos-grid modulos-${grupoAtivo}`}>
           {MODULOS.map(m => (
-            <button key={m.id} className="modulo-linha" onClick={() => setModulo(m)}>
+            <button key={m.id} className="modulo-card" onClick={() => setModulo(m)}>
               <span className="modulo-icone" aria-hidden="true">{m.icone}</span>
               <span className="modulo-texto">
                 <span className="modulo-titulo">{m.nome}</span>
