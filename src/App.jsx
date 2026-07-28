@@ -120,6 +120,7 @@ export default function App() {
     if (localStorage.getItem(CHAVE_SESSAO)) {
       localStorage.setItem(CHAVE_SESSAO, JSON.stringify(data))
     }
+    window.location.reload()
     return true
   }
 
