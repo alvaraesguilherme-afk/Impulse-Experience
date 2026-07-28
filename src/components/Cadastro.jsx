@@ -73,7 +73,7 @@ export default function Cadastro({ onCadastrado, onVoltar }) {
     const { data, error } = await supabase
       .from('staff')
       .insert({ nome: nomeCompleto, pin, is_supervisor: false, ativo: true, foto_url: fotoUrl, genero })
-      .select('id, nome, is_supervisor, foto_url')
+      .select('id, nome, is_supervisor, foto_url, genero')
       .single()
     setCarregando(false)
 

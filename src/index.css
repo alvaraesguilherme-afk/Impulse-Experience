@@ -594,10 +594,27 @@ body {
   color: #38BDF8;
 }
 
+.modulos-feminino {
+  background: #FFFFFF;
+  border-color: rgba(219, 39, 119, 0.18);
+}
+
+.modulos-feminino .modulo-linha {
+  border-top-color: rgba(219, 39, 119, 0.14);
+}
+
+.modulos-feminino .modulo-titulo {
+  color: #1F1220;
+}
+
+.modulos-feminino .modulo-desc {
+  color: #9D5A78;
+}
+
 .modulos-feminino .modulo-icone {
-  background: rgba(244, 114, 182, 0.14);
-  border: 1px solid rgba(244, 114, 182, 0.3);
-  color: #F472B6;
+  background: #EC4899;
+  border: none;
+  color: #FFFFFF;
 }
 
 .equipe-card {

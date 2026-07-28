@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
+import { aplicarPreferencias } from './lib/preferencias'
 import Splash from './components/Splash'
 import Login from './components/Login'
 import Cadastro from './components/Cadastro'
@@ -58,7 +59,9 @@ export default function App() {
     if (lembrar) {
       localStorage.setItem(CHAVE_SESSAO, JSON.stringify(dados))
     }
-    setGrupoAtivo(grupoInicial(dados))
+    const grupo = grupoInicial(dados)
+    setGrupoAtivo(grupo)
+    aplicarPreferencias(grupo)
     setAba(dados.is_supervisor ? 'avisos' : 'home')
     setUsuario(dados)
   }
@@ -67,11 +70,13 @@ export default function App() {
     localStorage.removeItem(CHAVE_SESSAO)
     setTelaAuth('login')
     setUsuario(null)
+    aplicarPreferencias(undefined)
   }
 
   function mudarGrupo(g) {
     setGrupoAtivo(g)
     if (usuario?.genero === 'ambos') localStorage.setItem(CHAVE_GRUPO, g)
+    aplicarPreferencias(g)
   }
 
   function atualizarFoto(fotoUrl) {
@@ -92,7 +97,9 @@ export default function App() {
     if (!data) return false
 
     setUsuario(data)
-    setGrupoAtivo(grupoInicial(data))
+    const grupo = grupoInicial(data)
+    setGrupoAtivo(grupo)
+    aplicarPreferencias(grupo)
     if (localStorage.getItem(CHAVE_SESSAO)) {
       localStorage.setItem(CHAVE_SESSAO, JSON.stringify(data))
     }

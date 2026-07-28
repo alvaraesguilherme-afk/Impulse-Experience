@@ -1,5 +1,7 @@
 const CHAVE_TEMA = 'impulse_tema'
 const CHAVE_ACCENT = 'impulse_accent'
+const CHAVE_SESSAO = 'impulse_usuario'
+const CHAVE_GRUPO = 'impulse_grupo_ativo'
 
 export const TEMAS = [
   { id: 'escuro', label: 'Escuro' },
@@ -16,17 +18,38 @@ export const CORES = [
   { id: 'vermelho', label: 'Vermelho', cor: '#DC2626' },
 ]
 
-export function getTema() {
-  return localStorage.getItem(CHAVE_TEMA) || 'escuro'
+export function grupoAtivoSalvo() {
+  try {
+    const usuario = JSON.parse(localStorage.getItem(CHAVE_SESSAO) || 'null')
+    if (!usuario) return undefined
+    if (usuario.genero === 'ambos') return localStorage.getItem(CHAVE_GRUPO) || 'masculino'
+    return usuario.genero || 'masculino'
+  } catch {
+    return undefined
+  }
 }
 
-export function getAccent() {
-  return localStorage.getItem(CHAVE_ACCENT) || 'roxo'
+function temaPadrao(grupoAtivo) {
+  return grupoAtivo === 'feminino' ? 'claro' : 'escuro'
 }
 
-export function aplicarPreferencias() {
-  const tema = getTema()
-  const accent = getAccent()
+function accentPadrao(grupoAtivo) {
+  if (grupoAtivo === 'feminino') return 'rosa'
+  if (grupoAtivo === 'masculino') return 'azul'
+  return 'roxo'
+}
+
+export function getTema(grupoAtivo = grupoAtivoSalvo()) {
+  return localStorage.getItem(CHAVE_TEMA) || temaPadrao(grupoAtivo)
+}
+
+export function getAccent(grupoAtivo = grupoAtivoSalvo()) {
+  return localStorage.getItem(CHAVE_ACCENT) || accentPadrao(grupoAtivo)
+}
+
+export function aplicarPreferencias(grupoAtivo = grupoAtivoSalvo()) {
+  const tema = getTema(grupoAtivo)
+  const accent = getAccent(grupoAtivo)
   const root = document.documentElement
 
   const escuro = tema === 'auto'
@@ -40,12 +63,12 @@ export function aplicarPreferencias() {
   else root.setAttribute('data-accent', accent)
 }
 
-export function setTema(tema) {
+export function setTema(tema, grupoAtivo) {
   localStorage.setItem(CHAVE_TEMA, tema)
-  aplicarPreferencias()
+  aplicarPreferencias(grupoAtivo)
 }
 
-export function setAccent(accent) {
+export function setAccent(accent, grupoAtivo) {
   localStorage.setItem(CHAVE_ACCENT, accent)
-  aplicarPreferencias()
+  aplicarPreferencias(grupoAtivo)
 }

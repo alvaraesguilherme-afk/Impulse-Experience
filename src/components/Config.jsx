@@ -5,8 +5,8 @@ import GrupoSwitcher from './GrupoSwitcher'
 const VERSAO_APP = '1.0.0'
 
 export default function Config({ usuario, onSair, grupoAtivo, podeAlternarGrupo, onMudarGrupo, onRecarregar }) {
-  const [tema, setTemaState] = useState(getTema)
-  const [accent, setAccentState] = useState(getAccent)
+  const [tema, setTemaState] = useState(() => getTema(grupoAtivo))
+  const [accent, setAccentState] = useState(() => getAccent(grupoAtivo))
   const [recarregando, setRecarregando] = useState(false)
   const [mensagem, setMensagem] = useState('')
 
@@ -19,12 +19,12 @@ export default function Config({ usuario, onSair, grupoAtivo, podeAlternarGrupo,
   }
 
   function escolherTema(id) {
-    setTema(id)
+    setTema(id, grupoAtivo)
     setTemaState(id)
   }
 
   function escolherAccent(id) {
-    setAccent(id)
+    setAccent(id, grupoAtivo)
     setAccentState(id)
   }
 
