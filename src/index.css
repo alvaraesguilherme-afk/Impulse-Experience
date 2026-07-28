@@ -413,6 +413,26 @@ body {
   margin-bottom: 8px;
 }
 
+.topo-com-voltar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-voltar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  color: var(--text);
+  cursor: pointer;
+}
+
 .topo-saudacao {
   color: var(--text-muted);
   font-size: 13px;
@@ -471,35 +491,82 @@ body {
   margin: 22px 0 26px;
 }
 
-.staff-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.staff-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 8px;
-  padding: 18px 10px;
+.equipe-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
+  overflow: hidden;
 }
 
-.staff-card-avatar {
-  width: 56px;
-  height: 56px;
+.equipe-card-cabeca {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.equipe-card-titulo {
+  font-weight: 700;
+  font-size: 15px;
+  flex: 1;
+}
+
+.equipe-card-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-light);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-glow);
+  border-radius: 20px;
+  padding: 2px 10px;
+}
+
+.equipe-card-seta {
+  color: var(--text-faint);
+  transition: transform 0.2s ease;
+}
+
+.equipe-card-aberto .equipe-card-seta {
+  transform: rotate(180deg);
+}
+
+.equipe-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0 8px 8px;
+}
+
+.equipe-lista-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.equipe-lista-avatar {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   object-fit: cover;
-  font-size: 20px;
+  font-size: 12px;
+  flex-shrink: 0;
 }
 
-.staff-card-nome {
-  font-size: 13px;
-  font-weight: 600;
+.equipe-lista-nome {
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
