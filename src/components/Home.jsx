@@ -51,6 +51,53 @@ const MODULOS = [
   },
 ]
 
+const VERSICULOS = [
+  { texto: 'O Senhor é o meu pastor, nada me faltará.', ref: 'Salmos 23:1' },
+  { texto: 'Tudo posso naquele que me fortalece.', ref: 'Filipenses 4:13' },
+  { texto: 'O Senhor é a minha luz e a minha salvação; a quem temerei?', ref: 'Salmos 27:1' },
+  { texto: 'Entrega o teu caminho ao Senhor; confia nele, e ele o fará.', ref: 'Salmos 37:5' },
+  { texto: 'Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus.', ref: 'Isaías 41:10' },
+  { texto: 'Porque para Deus nada é impossível.', ref: 'Lucas 1:37' },
+  { texto: 'O amor é paciente, é bondoso; não inveja, não se vangloria, não se orgulha.', ref: '1 Coríntios 13:4' },
+  { texto: 'Alegrai-vos sempre no Senhor; outra vez digo, alegrai-vos.', ref: 'Filipenses 4:4' },
+  { texto: 'Buscai primeiro o Reino de Deus, e todas as coisas vos serão acrescentadas.', ref: 'Mateus 6:33' },
+  { texto: 'Porque eu bem sei os pensamentos que penso a vosso respeito, pensamentos de paz.', ref: 'Jeremias 29:11' },
+  { texto: 'O Senhor é bom, uma fortaleza no dia da angústia.', ref: 'Naum 1:7' },
+  { texto: 'Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós.', ref: '1 Pedro 5:7' },
+  { texto: 'Sede fortes e corajosos; o Senhor, teu Deus, é contigo por onde quer que andares.', ref: 'Josué 1:9' },
+  { texto: 'A alegria do Senhor é a vossa força.', ref: 'Neemias 8:10' },
+  { texto: 'Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum.', ref: 'Salmos 23:4' },
+  { texto: 'Grandes coisas fez o Senhor por nós, e por isso estamos alegres.', ref: 'Salmos 126:3' },
+  { texto: 'Bendize, ó minha alma, ao Senhor, e não te esqueças de nenhum de seus benefícios.', ref: 'Salmos 103:2' },
+  { texto: 'O Senhor te abençoe e te guarde.', ref: 'Números 6:24' },
+  { texto: 'Vinde a mim, todos os que estais cansados e sobrecarregados, e eu vos aliviarei.', ref: 'Mateus 11:28' },
+  { texto: 'Não andeis ansiosos por coisa alguma; em tudo, pela oração, apresentai a Deus os vossos pedidos.', ref: 'Filipenses 4:6' },
+  { texto: 'Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia.', ref: 'Salmos 46:1' },
+  { texto: 'Amados, amemo-nos uns aos outros, porque o amor procede de Deus.', ref: '1 João 4:7' },
+  { texto: 'Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento.', ref: 'Provérbios 3:5' },
+  { texto: 'Ele dá força ao cansado e multiplica as forças ao que não tem nenhum vigor.', ref: 'Isaías 40:29' },
+  { texto: 'Serve ao Senhor com alegria; vem perante a sua face com canto.', ref: 'Salmos 100:2' },
+  { texto: 'A tua palavra é lâmpada para os meus pés e luz para o meu caminho.', ref: 'Salmos 119:105' },
+  { texto: 'Tudo o que fizerdes, fazei-o de todo o coração, como para o Senhor.', ref: 'Colossenses 3:23' },
+  { texto: 'O Senhor pelejará por vós, e vós vos calareis.', ref: 'Êxodo 14:14' },
+  { texto: 'Fiel é o que vos chama, o qual também o fará.', ref: '1 Tessalonicenses 5:24' },
+  { texto: 'Esperai no Senhor, esforçai-vos, e ele fortalecerá o vosso coração.', ref: 'Salmos 27:14' },
+]
+
+function saudacaoPorHorario() {
+  const hora = new Date().getHours()
+  if (hora >= 5 && hora < 12) return 'Bom dia'
+  if (hora >= 12 && hora < 18) return 'Boa tarde'
+  return 'Boa noite'
+}
+
+function versiculoDoDia() {
+  const hoje = new Date()
+  const inicioAno = new Date(hoje.getFullYear(), 0, 0)
+  const diaDoAno = Math.floor((hoje - inicioAno) / 86400000)
+  return VERSICULOS[diaDoAno % VERSICULOS.length]
+}
+
 export default function Home({ usuario, grupoAtivo, online = new Set() }) {
   const [equipe, setEquipe] = useState([])
   const [avisos, setAvisos] = useState([])
@@ -70,6 +117,7 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
 
   const equipeOnline = equipe.filter(p => online.has(p.id))
   const equipeOffline = equipe.filter(p => !online.has(p.id))
+  const versiculo = versiculoDoDia()
 
   if (selecionado) {
     return <Perfil usuario={selecionado} online={online.has(selecionado.id)} onVoltar={() => setSelecionado(null)} />
@@ -101,7 +149,7 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
           {usuario.foto_url
             ? <img src={usuario.foto_url} alt="" className="topo-avatar topo-avatar-pequeno" />
             : <span className="topo-avatar topo-avatar-pequeno topo-avatar-vazio" aria-hidden="true">{usuario.nome.charAt(0).toUpperCase()}</span>}
-          <span className="topo-saudacao">Olá, {usuario.nome}</span>
+          <span className="topo-saudacao">{saudacaoPorHorario()}, {usuario.nome}</span>
         </div>
       </header>
 
@@ -109,6 +157,10 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
         Impulse<br />
         <span className="home-marca-gradiente">Experience</span>
       </div>
+
+      <p className="versiculo-dia">
+        “{versiculo.texto}” <span className="versiculo-ref">— {versiculo.ref}</span>
+      </p>
 
       {avisos.length > 0 && (
         <section className="secao">

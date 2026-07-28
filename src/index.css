@@ -814,6 +814,20 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.versiculo-dia {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: -10px 0 24px;
+}
+
+.versiculo-ref {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+
 .btn-sair {
   padding: 8px 16px;
   border-radius: 10px;
