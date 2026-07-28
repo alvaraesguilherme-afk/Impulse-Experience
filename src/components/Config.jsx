@@ -1,6 +1,22 @@
+import { useState } from 'react'
+import { TEMAS, CORES, getTema, getAccent, setTema, setAccent } from '../lib/preferencias'
+
 const VERSAO_APP = '1.0.0'
 
 export default function Config({ usuario, onSair }) {
+  const [tema, setTemaState] = useState(getTema)
+  const [accent, setAccentState] = useState(getAccent)
+
+  function escolherTema(id) {
+    setTema(id)
+    setTemaState(id)
+  }
+
+  function escolherAccent(id) {
+    setAccent(id)
+    setAccentState(id)
+  }
+
   return (
     <div className="tela">
       <header className="topo topo-minimal">
@@ -12,6 +28,38 @@ export default function Config({ usuario, onSair }) {
         <div className="config-linha">
           <span>Logado como</span>
           <span className="config-valor">{usuario.nome}</span>
+        </div>
+      </section>
+
+      <section className="secao">
+        <h3>Aparência</h3>
+        <p className="secao-sub">Tema</p>
+        <div className="genero-opcoes aparencia-temas">
+          {TEMAS.map(t => (
+            <button
+              key={t.id}
+              type="button"
+              className={`genero-btn ${tema === t.id ? 'genero-btn-ativo' : ''}`}
+              onClick={() => escolherTema(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        <p className="secao-sub">Cor de destaque</p>
+        <div className="aparencia-swatches">
+          {CORES.map(c => (
+            <button
+              key={c.id}
+              type="button"
+              className={`swatch ${accent === c.id ? 'swatch-ativo' : ''}`}
+              style={{ background: c.cor }}
+              onClick={() => escolherAccent(c.id)}
+              aria-label={c.label}
+              aria-pressed={accent === c.id}
+            />
+          ))}
         </div>
       </section>
 
