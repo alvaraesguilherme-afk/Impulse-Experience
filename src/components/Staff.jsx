@@ -5,7 +5,7 @@ export default function Staff({ grupoAtivo }) {
   const [equipe, setEquipe] = useState([])
 
   useEffect(() => {
-    supabase.from('staff').select('nome, is_supervisor').eq('ativo', true).in('genero', [grupoAtivo, 'ambos']).order('nome')
+    supabase.from('staff').select('nome, foto_url').eq('ativo', true).in('genero', [grupoAtivo, 'ambos']).order('nome')
       .then(({ data }) => setEquipe(data || []))
   }, [grupoAtivo])
 
@@ -19,9 +19,14 @@ export default function Staff({ grupoAtivo }) {
       </header>
 
       <section className="secao">
-        <div className="chips">
+        <div className="staff-grid">
           {equipe.map(p => (
-            <span key={p.nome} className={`chip ${p.is_supervisor ? 'chip-lider' : ''}`}>{p.nome}</span>
+            <div key={p.nome} className="staff-card">
+              {p.foto_url
+                ? <img src={p.foto_url} alt="" className="staff-card-avatar" />
+                : <span className="staff-card-avatar topo-avatar-vazio" aria-hidden="true">{p.nome.charAt(0).toUpperCase()}</span>}
+              <span className="staff-card-nome">{p.nome}</span>
+            </div>
           ))}
         </div>
       </section>

@@ -20,6 +20,7 @@ const NAV_STAFF = [
 ]
 
 const NAV_SUPERVISOR = [
+  { id: 'home', label: 'Home' },
   { id: 'avisos', label: 'Avisos' },
   { id: 'perfil', label: 'Perfil' },
   { id: 'config', label: 'Config' },
@@ -89,13 +90,10 @@ export default function App() {
     if (aba === 'config') {
       return <Config usuario={usuario} onSair={sair} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
     }
-    if (usuario.is_supervisor) {
-      return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} />
-    }
-    if (aba === 'staff') {
-      return <Staff grupoAtivo={grupoAtivo} />
-    }
-    return <Home usuario={usuario} grupoAtivo={grupoAtivo} />
+    if (aba === 'home') return <Home usuario={usuario} />
+    if (aba === 'staff') return <Staff grupoAtivo={grupoAtivo} />
+    if (usuario.is_supervisor) return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} />
+    return <Home usuario={usuario} />
   }
 
   return (
