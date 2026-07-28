@@ -64,7 +64,7 @@ export default function App() {
     const grupo = grupoInicial(dados)
     setGrupoAtivo(grupo)
     aplicarPreferencias(grupo)
-    setAba(dados.is_supervisor ? 'avisos' : 'home')
+    setAba('home')
     setUsuario(dados)
   }
 

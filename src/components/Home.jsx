@@ -48,6 +48,7 @@ const MODULOS = [
 
 export default function Home({ usuario, grupoAtivo }) {
   const [equipe, setEquipe] = useState([])
+  const [avisos, setAvisos] = useState([])
   const [aberto, setAberto] = useState(false)
   const [selecionado, setSelecionado] = useState(null)
   const [modulo, setModulo] = useState(null)
@@ -55,6 +56,11 @@ export default function Home({ usuario, grupoAtivo }) {
   useEffect(() => {
     supabase.from('staff').select('nome, foto_url, is_supervisor, genero').eq('ativo', true).in('genero', [grupoAtivo, 'ambos']).order('nome')
       .then(({ data }) => setEquipe(data || []))
+  }, [grupoAtivo])
+
+  useEffect(() => {
+    supabase.from('avisos').select('*').eq('genero', grupoAtivo).order('created_at', { ascending: false }).limit(5)
+      .then(({ data }) => setAvisos(data || []))
   }, [grupoAtivo])
 
   if (selecionado) {
@@ -95,6 +101,20 @@ export default function Home({ usuario, grupoAtivo }) {
         Impulse<br />
         <span className="home-marca-gradiente">Experience</span>
       </div>
+
+      {avisos.length > 0 && (
+        <section className="secao">
+          <h3>Avisos</h3>
+          <ul className="lista-avisos">
+            {avisos.map(a => (
+              <li key={a.id} className="aviso-item">
+                <p>{a.texto}</p>
+                <span className="aviso-data">{a.autor} · {new Date(a.created_at).toLocaleString('pt-BR')}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="secao">
         <h3>Módulos</h3>
