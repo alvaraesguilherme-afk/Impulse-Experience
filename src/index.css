@@ -9,6 +9,7 @@
   --text-faint: #6B6B78;
   --accent: #7C5CFC;
   --accent-light: #A78BFA;
+  --accent-dark: #5333B0;
   --accent-bg: rgba(124, 92, 252, 0.12);
   --accent-glow: rgba(124, 92, 252, 0.35);
   --danger: #F87171;
@@ -29,6 +30,7 @@
   --text-faint: #C48AA8;
   --accent: #EC4899;
   --accent-light: #F472B6;
+  --accent-dark: #C2185B;
   --accent-bg: rgba(236, 72, 153, 0.12);
   --accent-glow: rgba(236, 72, 153, 0.35);
   --nav-bg: rgba(255, 255, 255, 0.96);
@@ -46,6 +48,7 @@
   --text-faint: #5C5C5C;
   --accent: #EA580C;
   --accent-light: #FB923C;
+  --accent-dark: #B4400F;
   --accent-bg: rgba(234, 88, 12, 0.14);
   --accent-glow: rgba(234, 88, 12, 0.35);
   --nav-bg: rgba(0, 0, 0, 0.98);
@@ -521,30 +524,52 @@ body {
 }
 
 .modulo-card {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 13px 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  gap: 13px;
+  padding: 14px 15px;
   border-radius: 16px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   text-align: left;
   cursor: pointer;
   color: var(--text);
 }
 
+.modulo-card::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  right: -25%;
+  width: 65%;
+  height: 65%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+[data-grupo="feminino"] .modulo-card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(219, 39, 119, 0.25);
+  box-shadow: 0 14px 30px rgba(219, 39, 119, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
 .modulo-icone {
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-glow);
-  color: var(--accent);
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 55%, var(--accent-dark) 100%);
+  color: #FFFFFF;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 -2px 4px rgba(0, 0, 0, 0.25), 0 6px 14px var(--accent-glow);
 }
 
 .modulo-icone svg {
