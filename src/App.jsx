@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { supabase } from './lib/supabase'
 import Splash from './components/Splash'
 import Login from './components/Login'
 import Cadastro from './components/Cadastro'
@@ -81,6 +82,23 @@ export default function App() {
     }
   }
 
+  async function recarregarUsuario() {
+    const { data } = await supabase
+      .from('staff')
+      .select('id, nome, is_supervisor, foto_url, genero')
+      .eq('id', usuario.id)
+      .maybeSingle()
+
+    if (!data) return false
+
+    setUsuario(data)
+    setGrupoAtivo(grupoInicial(data))
+    if (localStorage.getItem(CHAVE_SESSAO)) {
+      localStorage.setItem(CHAVE_SESSAO, JSON.stringify(data))
+    }
+    return true
+  }
+
   if (splash) return <Splash saindo={splashSaindo} />
   if (!usuario) {
     return telaAuth === 'cadastro'
@@ -94,7 +112,16 @@ export default function App() {
   function conteudo() {
     if (aba === 'perfil') return <Perfil usuario={usuario} editavel onFotoAtualizada={atualizarFoto} />
     if (aba === 'config') {
-      return <Config usuario={usuario} onSair={sair} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
+      return (
+        <Config
+          usuario={usuario}
+          onSair={sair}
+          grupoAtivo={grupoAtivo}
+          podeAlternarGrupo={podeAlternarGrupo}
+          onMudarGrupo={mudarGrupo}
+          onRecarregar={recarregarUsuario}
+        />
+      )
     }
     if (aba === 'home') return <Home usuario={usuario} grupoAtivo={grupoAtivo} />
     if (usuario.is_supervisor) return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} />
