@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
 import { aplicarPreferencias, grupoPreviewSalvo, setGrupoPreview, limparGrupoPreview } from './lib/preferencias'
+import { usePresenca } from './lib/presenca'
 import Splash from './components/Splash'
 import SeletorGrupo from './components/SeletorGrupo'
 import Login from './components/Login'
@@ -50,6 +51,7 @@ export default function App() {
   const [telaAuth, setTelaAuth] = useState('login')
   const [splash, setSplash] = useState(true)
   const [splashSaindo, setSplashSaindo] = useState(false)
+  const online = usePresenca(usuario)
 
   useEffect(() => {
     const t1 = setTimeout(() => setSplashSaindo(true), 2400)
@@ -146,9 +148,9 @@ export default function App() {
         />
       )
     }
-    if (aba === 'home') return <Home usuario={usuario} grupoAtivo={grupoAtivo} />
+    if (aba === 'home') return <Home usuario={usuario} grupoAtivo={grupoAtivo} online={online} />
     if (usuario.is_supervisor) return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} />
-    return <Home usuario={usuario} grupoAtivo={grupoAtivo} />
+    return <Home usuario={usuario} grupoAtivo={grupoAtivo} online={online} />
   }
 
   return (

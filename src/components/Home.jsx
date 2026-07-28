@@ -51,7 +51,7 @@ const MODULOS = [
   },
 ]
 
-export default function Home({ usuario, grupoAtivo }) {
+export default function Home({ usuario, grupoAtivo, online = new Set() }) {
   const [equipe, setEquipe] = useState([])
   const [avisos, setAvisos] = useState([])
   const [aberto, setAberto] = useState(false)
@@ -59,7 +59,7 @@ export default function Home({ usuario, grupoAtivo }) {
   const [modulo, setModulo] = useState(null)
 
   useEffect(() => {
-    supabase.from('staff').select('nome, foto_url, is_supervisor, genero').eq('ativo', true).in('genero', [grupoAtivo, 'ambos']).order('nome')
+    supabase.from('staff').select('id, nome, foto_url, is_supervisor, genero').eq('ativo', true).in('genero', [grupoAtivo, 'ambos']).order('nome')
       .then(({ data }) => setEquipe(data || []))
   }, [grupoAtivo])
 
@@ -69,7 +69,7 @@ export default function Home({ usuario, grupoAtivo }) {
   }, [grupoAtivo])
 
   if (selecionado) {
-    return <Perfil usuario={selecionado} onVoltar={() => setSelecionado(null)} />
+    return <Perfil usuario={selecionado} online={online.has(selecionado.id)} onVoltar={() => setSelecionado(null)} />
   }
 
   if (modulo) {
@@ -151,11 +151,17 @@ export default function Home({ usuario, grupoAtivo }) {
           {aberto && (
             <ul className="equipe-lista">
               {equipe.map(p => (
-                <li key={p.nome}>
+                <li key={p.id}>
                   <button className="equipe-lista-item" onClick={() => setSelecionado(p)}>
-                    {p.foto_url
-                      ? <img src={p.foto_url} alt="" className="equipe-lista-avatar" />
-                      : <span className="equipe-lista-avatar topo-avatar-vazio" aria-hidden="true">{p.nome.charAt(0).toUpperCase()}</span>}
+                    <span className="equipe-lista-avatar-wrap">
+                      {p.foto_url
+                        ? <img src={p.foto_url} alt="" className="equipe-lista-avatar" />
+                        : <span className="equipe-lista-avatar topo-avatar-vazio" aria-hidden="true">{p.nome.charAt(0).toUpperCase()}</span>}
+                      <span
+                        className={`bolinha-status ${online.has(p.id) ? 'bolinha-status-online' : 'bolinha-status-offline'}`}
+                        aria-label={online.has(p.id) ? 'Online agora' : 'Offline'}
+                      />
+                    </span>
                     <span className="equipe-lista-nome">{p.nome}</span>
                   </button>
                 </li>

@@ -9,7 +9,7 @@ const LABEL_GENERO = {
 
 const TAMANHO_MAX_FOTO = 5 * 1024 * 1024
 
-export default function Perfil({ usuario, onVoltar, editavel, onFotoAtualizada }) {
+export default function Perfil({ usuario, onVoltar, editavel, onFotoAtualizada, online }) {
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState('')
 
@@ -85,6 +85,12 @@ export default function Perfil({ usuario, onVoltar, editavel, onFotoAtualizada }
         )}
         <h3 className="perfil-nome-grande">{usuario.nome}</h3>
         {usuario.genero && <span className="chip chip-lider">{LABEL_GENERO[usuario.genero]}</span>}
+        {!editavel && (
+          <span className={`chip-status ${online ? 'chip-status-online' : 'chip-status-offline'}`}>
+            <span className="bolinha-online-inline" aria-hidden="true" />
+            {online ? 'Online agora' : 'Offline'}
+          </span>
+        )}
       </section>
 
       <section className="secao">
