@@ -1189,6 +1189,63 @@ body {
   to { width: 100%; }
 }
 
+/* Toast de entrada em tempo real */
+.toast-entrada-wrap {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: calc(100% - 32px);
+  max-width: 400px;
+  pointer-events: none;
+}
+
+.toast-entrada {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: rgba(22, 22, 31, 0.92);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  animation: toastEntradaIn 0.3s ease, toastEntradaOut 0.3s ease 3.7s forwards;
+}
+
+[data-grupo="feminino"] .toast-entrada {
+  background: rgba(255, 255, 255, 0.94);
+  color: #1F1220;
+  border: 1px solid rgba(219, 39, 119, 0.2);
+  box-shadow: 0 12px 28px rgba(219, 39, 119, 0.15);
+}
+
+.toast-entrada-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22C55E;
+  flex-shrink: 0;
+}
+
+@keyframes toastEntradaIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toastEntradaOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 /* Nav bar mobile */
 .nav-mobile {
   position: fixed;

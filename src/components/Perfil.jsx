@@ -88,7 +88,9 @@ export default function Perfil({ usuario, onVoltar, editavel, onFotoAtualizada, 
         {!editavel && (
           <span className={`chip-status ${online ? 'chip-status-online' : 'chip-status-offline'}`}>
             <span className="bolinha-online-inline" aria-hidden="true" />
-            {online ? 'Online agora' : 'Offline'}
+            {online?.online_em
+              ? `Online desde ${new Date(online.online_em).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`
+              : 'Offline'}
           </span>
         )}
       </section>

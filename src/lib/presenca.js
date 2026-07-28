@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase } from './supabase'
 
 export function usePresenca(usuario) {
-  const [online, setOnline] = useState(() => new Set())
+  const [online, setOnline] = useState(() => new Map())
+  const [toasts, setToasts] = useState([])
+  const proximoIdRef = useRef(0)
 
   useEffect(() => {
     if (!usuario) {
-      setOnline(new Set())
+      setOnline(new Map())
       return
     }
 
@@ -15,7 +17,23 @@ export function usePresenca(usuario) {
     })
 
     canal.on('presence', { event: 'sync' }, () => {
-      setOnline(new Set(Object.keys(canal.presenceState())))
+      const estado = canal.presenceState()
+      const mapa = new Map()
+      for (const [id, presencas] of Object.entries(estado)) {
+        const info = presencas[0]
+        mapa.set(id, { nome: info?.nome, online_em: info?.online_em })
+      }
+      setOnline(mapa)
+    })
+
+    canal.on('presence', { event: 'join' }, ({ key, newPresences }) => {
+      if (key === usuario.id) return
+      const info = newPresences[0]
+      const toastId = ++proximoIdRef.current
+      setToasts(atual => [...atual, { id: toastId, nome: info?.nome || 'Alguém' }])
+      setTimeout(() => {
+        setToasts(atual => atual.filter(t => t.id !== toastId))
+      }, 4000)
     })
 
     canal.subscribe(async status => {
@@ -29,5 +47,5 @@ export function usePresenca(usuario) {
     }
   }, [usuario?.id])
 
-  return online
+  return { online, toasts }
 }

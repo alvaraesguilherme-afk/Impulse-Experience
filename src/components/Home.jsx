@@ -98,7 +98,7 @@ function versiculoDoDia() {
   return VERSICULOS[diaDoAno % VERSICULOS.length]
 }
 
-export default function Home({ usuario, grupoAtivo, online = new Set() }) {
+export default function Home({ usuario, grupoAtivo, online = new Map() }) {
   const [equipe, setEquipe] = useState([])
   const [avisos, setAvisos] = useState([])
   const [aberto, setAberto] = useState(false)
@@ -120,7 +120,7 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
   const versiculo = versiculoDoDia()
 
   if (selecionado) {
-    return <Perfil usuario={selecionado} online={online.has(selecionado.id)} onVoltar={() => setSelecionado(null)} />
+    return <Perfil usuario={selecionado} online={online.get(selecionado.id)} onVoltar={() => setSelecionado(null)} />
   }
 
   if (modulo) {

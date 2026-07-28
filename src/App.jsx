@@ -3,6 +3,7 @@ import { supabase } from './lib/supabase'
 import { aplicarPreferencias, grupoPreviewSalvo, setGrupoPreview, limparGrupoPreview } from './lib/preferencias'
 import { usePresenca } from './lib/presenca'
 import Splash from './components/Splash'
+import ToastEntradas from './components/ToastEntradas'
 import SeletorGrupo from './components/SeletorGrupo'
 import Login from './components/Login'
 import Cadastro from './components/Cadastro'
@@ -51,7 +52,7 @@ export default function App() {
   const [telaAuth, setTelaAuth] = useState('login')
   const [splash, setSplash] = useState(true)
   const [splashSaindo, setSplashSaindo] = useState(false)
-  const online = usePresenca(usuario)
+  const { online, toasts } = usePresenca(usuario)
 
   useEffect(() => {
     const t1 = setTimeout(() => setSplashSaindo(true), 2400)
@@ -156,6 +157,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <ToastEntradas toasts={toasts} />
       {conteudo()}
       <NavBar itens={nav} ativa={aba} onMudar={setAba} />
     </div>
