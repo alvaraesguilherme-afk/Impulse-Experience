@@ -23,6 +23,11 @@ const MODULOS = [
         <path d="M12 21c-4-3-8-6.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4.5-4 8-8 11z" />
       </svg>
     ),
+    iconeMasculino: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2v20" /><path d="M6 8h12" />
+      </svg>
+    ),
   },
   {
     id: 'midia',
@@ -121,7 +126,9 @@ export default function Home({ usuario, grupoAtivo }) {
         <div className={`modulos-grid modulos-${grupoAtivo}`}>
           {MODULOS.map(m => (
             <button key={m.id} className="modulo-card" onClick={() => setModulo(m)}>
-              <span className="modulo-icone" aria-hidden="true">{m.icone}</span>
+              <span className="modulo-icone" aria-hidden="true">
+                {m.iconeMasculino && grupoAtivo === 'masculino' ? m.iconeMasculino : m.icone}
+              </span>
               <span className="modulo-texto">
                 <span className="modulo-titulo">{m.nome}</span>
                 <span className="modulo-desc">{m.desc}</span>
