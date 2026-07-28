@@ -19,7 +19,7 @@ create table staff (
   is_supervisor boolean not null default false,
   ativo boolean not null default true,
   foto_url text,
-  genero text check (genero in ('masculino', 'feminino')),
+  genero text check (genero in ('masculino', 'feminino', 'ambos')),
   created_at timestamptz not null default now()
 );
 
@@ -69,7 +69,9 @@ create policy "avatars upload publico" on storage.objects
   with check (bucket_id = 'avatars');
 ```
 
-O staff pode se cadastrar sozinho pelo app (nome + senha + foto opcional). Contas de **supervisor** continuam sendo cadastradas manualmente no Supabase (Table Editor → `staff`, marcando `is_supervisor = true`) — isso é proposital, pra ninguém virar supervisor sozinho. Login é feito com nome + senha (a senha é o mesmo campo `pin` no banco).
+O staff pode se cadastrar sozinho pelo app (nome + senha + foto opcional), escolhendo `genero` = `masculino` ou `feminino`. Contas de **supervisor** continuam sendo cadastradas manualmente no Supabase (Table Editor → `staff`, marcando `is_supervisor = true`) — isso é proposital, pra ninguém virar supervisor sozinho. Login é feito com nome + senha (a senha é o mesmo campo `pin` no banco).
+
+`genero = 'ambos'` é um valor reservado pra contas administrativas com acesso total (não é selecionável na tela de cadastro pública) — indica que a pessoa acessa tanto o grupo Masculino quanto o Feminino.
 
 ## Deploy
 

@@ -1,6 +1,7 @@
 const LABEL_GENERO = {
   masculino: 'Impulse Masculino',
   feminino: 'Impulse Feminino',
+  ambos: 'Impulse Masculino & Feminino',
 }
 
 export default function Perfil({ usuario }) {

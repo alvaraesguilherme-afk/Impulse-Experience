@@ -17,7 +17,7 @@ export default function Login({ onLogin, onCadastrar }) {
 
     const { data, error } = await supabase
       .from('staff')
-      .select('id, nome, is_supervisor, foto_url')
+      .select('id, nome, is_supervisor, foto_url, genero')
       .ilike('nome', nome.trim())
       .eq('pin', senha)
       .eq('ativo', true)
