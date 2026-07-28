@@ -372,6 +372,20 @@ body {
   margin-top: 8px;
 }
 
+.aviso-foto {
+  text-align: center;
+}
+
+.aviso-foto-texto {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.aviso-foto .btn-link {
+  margin-top: 10px;
+}
+
 .login-opcoes {
   display: flex;
   align-items: center;
@@ -721,6 +735,34 @@ body {
 
 .equipe-card-aberto .equipe-card-seta {
   transform: rotate(180deg);
+}
+
+.equipe-filtro {
+  display: flex;
+  gap: 6px;
+  padding: 0 12px 10px;
+}
+
+.equipe-filtro-btn {
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
+  background: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.equipe-filtro-ativo {
+  border-color: var(--accent-glow);
+  background: var(--accent-bg);
+  color: var(--accent-light);
+}
+
+.equipe-vazio {
+  padding: 4px 12px 12px;
+  font-size: 13px;
 }
 
 .equipe-lista {

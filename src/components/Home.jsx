@@ -55,6 +55,7 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
   const [equipe, setEquipe] = useState([])
   const [avisos, setAvisos] = useState([])
   const [aberto, setAberto] = useState(false)
+  const [filtroEquipe, setFiltroEquipe] = useState('todos')
   const [selecionado, setSelecionado] = useState(null)
   const [modulo, setModulo] = useState(null)
 
@@ -67,6 +68,8 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
     supabase.from('avisos').select('*').eq('genero', grupoAtivo).order('created_at', { ascending: false }).limit(5)
       .then(({ data }) => setAvisos(data || []))
   }, [grupoAtivo])
+
+  const equipeFiltrada = equipe.filter(p => filtroEquipe === 'todos' || (filtroEquipe === 'online') === online.has(p.id))
 
   if (selecionado) {
     return <Perfil usuario={selecionado} online={online.has(selecionado.id)} onVoltar={() => setSelecionado(null)} />
@@ -149,8 +152,32 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
           </button>
 
           {aberto && (
-            <ul className="equipe-lista">
-              {equipe.map(p => (
+            <>
+              <div className="equipe-filtro">
+                <button
+                  type="button"
+                  className={`equipe-filtro-btn ${filtroEquipe === 'todos' ? 'equipe-filtro-ativo' : ''}`}
+                  onClick={() => setFiltroEquipe('todos')}
+                >
+                  Todos
+                </button>
+                <button
+                  type="button"
+                  className={`equipe-filtro-btn ${filtroEquipe === 'online' ? 'equipe-filtro-ativo' : ''}`}
+                  onClick={() => setFiltroEquipe('online')}
+                >
+                  Online
+                </button>
+                <button
+                  type="button"
+                  className={`equipe-filtro-btn ${filtroEquipe === 'offline' ? 'equipe-filtro-ativo' : ''}`}
+                  onClick={() => setFiltroEquipe('offline')}
+                >
+                  Offline
+                </button>
+              </div>
+              <ul className="equipe-lista">
+              {equipeFiltrada.map(p => (
                 <li key={p.id}>
                   <button className="equipe-lista-item" onClick={() => setSelecionado(p)}>
                     <span className="equipe-lista-avatar-wrap">
@@ -166,7 +193,11 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
                   </button>
                 </li>
               ))}
-            </ul>
+              </ul>
+              {equipeFiltrada.length === 0 && (
+                <p className="vazio equipe-vazio">Ninguém {filtroEquipe === 'online' ? 'online' : 'offline'} no momento.</p>
+              )}
+            </>
           )}
         </div>
       </section>

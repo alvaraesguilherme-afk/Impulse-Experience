@@ -14,6 +14,12 @@ export default function Cadastro({ onCadastrado, onVoltar, generoPreferido, onTr
   const [fotoPreview, setFotoPreview] = useState(null)
   const [erro, setErro] = useState('')
   const [carregando, setCarregando] = useState(false)
+  const [avisoFoto, setAvisoFoto] = useState(false)
+
+  function escolherFotoAgora() {
+    setAvisoFoto(false)
+    document.getElementById('cadastro-foto')?.click()
+  }
 
   function escolherFoto(e) {
     const arquivo = e.target.files?.[0]
@@ -53,6 +59,10 @@ export default function Cadastro({ onCadastrado, onVoltar, generoPreferido, onTr
     }
     if (!genero) {
       setErro('Escolha Impulse Experience Masculino ou Feminino')
+      return
+    }
+    if (!foto && !avisoFoto) {
+      setAvisoFoto(true)
       return
     }
 
@@ -193,9 +203,17 @@ export default function Cadastro({ onCadastrado, onVoltar, generoPreferido, onTr
             </div>
 
             {erro && <div className="login-erro" role="alert">{erro}</div>}
-            <button type="submit" className="btn-primary" disabled={carregando}>
-              {carregando ? 'Criando...' : 'Criar conta'}
-            </button>
+            {avisoFoto ? (
+              <div className="aviso-foto">
+                <p className="aviso-foto-texto">Você não escolheu uma foto de perfil. Quer adicionar uma agora?</p>
+                <button type="button" className="btn-primary" onClick={escolherFotoAgora}>Adicionar foto</button>
+                <button type="submit" className="btn-link">Continuar sem foto</button>
+              </div>
+            ) : (
+              <button type="submit" className="btn-primary" disabled={carregando}>
+                {carregando ? 'Criando...' : 'Criar conta'}
+              </button>
+            )}
           </form>
           <button className="btn-link" onClick={onVoltar}>Já tenho conta, entrar</button>
         </div>
