@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import GrupoSwitcher from './GrupoSwitcher'
 
-export default function Home({ usuario }) {
+export default function Home({ usuario, grupoAtivo, podeAlternarGrupo, onMudarGrupo }) {
   const [avisos, setAvisos] = useState([])
 
   useEffect(() => {
-    supabase.from('avisos').select('*').order('created_at', { ascending: false }).limit(20)
+    supabase.from('avisos').select('*').eq('genero', grupoAtivo).order('created_at', { ascending: false }).limit(20)
       .then(({ data }) => setAvisos(data || []))
-  }, [])
+  }, [grupoAtivo])
 
   return (
     <div className="tela">
@@ -24,6 +25,8 @@ export default function Home({ usuario }) {
         Impulse<br />
         <span className="home-marca-gradiente">Experience</span>
       </div>
+
+      {podeAlternarGrupo && <GrupoSwitcher grupo={grupoAtivo} onMudar={onMudarGrupo} />}
 
       <section className="secao">
         <h3>Avisos</h3>

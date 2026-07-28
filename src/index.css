@@ -345,6 +345,30 @@ body {
   color: var(--accent-light);
 }
 
+.grupo-switcher {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.grupo-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.grupo-btn-ativo {
+  border-color: var(--accent-glow);
+  background: var(--accent-bg);
+  color: var(--accent-light);
+}
+
 .btn-link {
   width: 100%;
   background: none;

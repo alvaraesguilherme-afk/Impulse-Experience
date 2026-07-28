@@ -27,6 +27,7 @@ create table avisos (
   id uuid primary key default gen_random_uuid(),
   texto text not null,
   autor text not null,
+  genero text not null default 'masculino' check (genero in ('masculino', 'feminino')),
   created_at timestamptz not null default now()
 );
 
@@ -72,6 +73,10 @@ create policy "avatars upload publico" on storage.objects
 O staff pode se cadastrar sozinho pelo app (nome + senha + foto opcional), escolhendo `genero` = `masculino` ou `feminino`. Contas de **supervisor** continuam sendo cadastradas manualmente no Supabase (Table Editor → `staff`, marcando `is_supervisor = true`) — isso é proposital, pra ninguém virar supervisor sozinho. Login é feito com nome + senha (a senha é o mesmo campo `pin` no banco).
 
 `genero = 'ambos'` é um valor reservado pra contas administrativas com acesso total (não é selecionável na tela de cadastro pública) — indica que a pessoa acessa tanto o grupo Masculino quanto o Feminino.
+
+## Separação Masculino / Feminino
+
+Avisos e a lista de Equipe são totalmente separados por `genero`. Staff com `genero = 'masculino'` ou `'feminino'` só vê o conteúdo do próprio grupo, sem opção de trocar. Contas com `genero = 'ambos'` (administrativas) veem um seletor Masculino/Feminino no topo de Início, Equipe e Avisos, e tudo que criam (ex: novo aviso) fica salvo no grupo selecionado no momento.
 
 ## Deploy
 

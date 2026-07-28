@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import GrupoSwitcher from './GrupoSwitcher'
 
-export default function Staff() {
+export default function Staff({ grupoAtivo, podeAlternarGrupo, onMudarGrupo }) {
   const [equipe, setEquipe] = useState([])
 
   useEffect(() => {
-    supabase.from('staff').select('nome, is_supervisor').eq('ativo', true).order('nome')
+    supabase.from('staff').select('nome, is_supervisor').eq('ativo', true).in('genero', [grupoAtivo, 'ambos']).order('nome')
       .then(({ data }) => setEquipe(data || []))
-  }, [])
+  }, [grupoAtivo])
 
   return (
     <div className="tela">
@@ -17,6 +18,8 @@ export default function Staff() {
           <span className="topo-sub">{equipe.length} pessoas</span>
         </div>
       </header>
+
+      {podeAlternarGrupo && <GrupoSwitcher grupo={grupoAtivo} onMudar={onMudarGrupo} />}
 
       <section className="secao">
         <div className="chips">
