@@ -55,7 +55,6 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
   const [equipe, setEquipe] = useState([])
   const [avisos, setAvisos] = useState([])
   const [aberto, setAberto] = useState(false)
-  const [filtroEquipe, setFiltroEquipe] = useState('todos')
   const [selecionado, setSelecionado] = useState(null)
   const [modulo, setModulo] = useState(null)
 
@@ -69,7 +68,8 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
       .then(({ data }) => setAvisos(data || []))
   }, [grupoAtivo])
 
-  const equipeFiltrada = equipe.filter(p => filtroEquipe === 'todos' || (filtroEquipe === 'online') === online.has(p.id))
+  const equipeOnline = equipe.filter(p => online.has(p.id))
+  const equipeOffline = equipe.filter(p => !online.has(p.id))
 
   if (selecionado) {
     return <Perfil usuario={selecionado} online={online.has(selecionado.id)} onVoltar={() => setSelecionado(null)} />
@@ -153,49 +153,45 @@ export default function Home({ usuario, grupoAtivo, online = new Set() }) {
 
           {aberto && (
             <>
-              <div className="equipe-filtro">
-                <button
-                  type="button"
-                  className={`equipe-filtro-btn ${filtroEquipe === 'todos' ? 'equipe-filtro-ativo' : ''}`}
-                  onClick={() => setFiltroEquipe('todos')}
-                >
-                  Todos
-                </button>
-                <button
-                  type="button"
-                  className={`equipe-filtro-btn ${filtroEquipe === 'online' ? 'equipe-filtro-ativo' : ''}`}
-                  onClick={() => setFiltroEquipe('online')}
-                >
-                  Online
-                </button>
-                <button
-                  type="button"
-                  className={`equipe-filtro-btn ${filtroEquipe === 'offline' ? 'equipe-filtro-ativo' : ''}`}
-                  onClick={() => setFiltroEquipe('offline')}
-                >
-                  Offline
-                </button>
-              </div>
-              <ul className="equipe-lista">
-              {equipeFiltrada.map(p => (
-                <li key={p.id}>
-                  <button className="equipe-lista-item" onClick={() => setSelecionado(p)}>
-                    <span className="equipe-lista-avatar-wrap">
-                      {p.foto_url
-                        ? <img src={p.foto_url} alt="" className="equipe-lista-avatar" />
-                        : <span className="equipe-lista-avatar topo-avatar-vazio" aria-hidden="true">{p.nome.charAt(0).toUpperCase()}</span>}
-                      <span
-                        className={`bolinha-status ${online.has(p.id) ? 'bolinha-status-online' : 'bolinha-status-offline'}`}
-                        aria-label={online.has(p.id) ? 'Online agora' : 'Offline'}
-                      />
-                    </span>
-                    <span className="equipe-lista-nome">{p.nome}</span>
-                  </button>
-                </li>
-              ))}
-              </ul>
-              {equipeFiltrada.length === 0 && (
-                <p className="vazio equipe-vazio">Ninguém {filtroEquipe === 'online' ? 'online' : 'offline'} no momento.</p>
+              {equipeOnline.length > 0 && (
+                <>
+                  <div className="equipe-secao-titulo">Online — {equipeOnline.length}</div>
+                  <ul className="equipe-lista">
+                    {equipeOnline.map(p => (
+                      <li key={p.id}>
+                        <button className="equipe-lista-item" onClick={() => setSelecionado(p)}>
+                          <span className="equipe-lista-avatar-wrap">
+                            {p.foto_url
+                              ? <img src={p.foto_url} alt="" className="equipe-lista-avatar" />
+                              : <span className="equipe-lista-avatar topo-avatar-vazio" aria-hidden="true">{p.nome.charAt(0).toUpperCase()}</span>}
+                            <span className="bolinha-status bolinha-status-online" aria-label="Online agora" />
+                          </span>
+                          <span className="equipe-lista-nome">{p.nome}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {equipeOffline.length > 0 && (
+                <>
+                  <div className="equipe-secao-titulo">Offline — {equipeOffline.length}</div>
+                  <ul className="equipe-lista">
+                    {equipeOffline.map(p => (
+                      <li key={p.id}>
+                        <button className="equipe-lista-item" onClick={() => setSelecionado(p)}>
+                          <span className="equipe-lista-avatar-wrap">
+                            {p.foto_url
+                              ? <img src={p.foto_url} alt="" className="equipe-lista-avatar" />
+                              : <span className="equipe-lista-avatar topo-avatar-vazio" aria-hidden="true">{p.nome.charAt(0).toUpperCase()}</span>}
+                            <span className="bolinha-status bolinha-status-offline" aria-label="Offline" />
+                          </span>
+                          <span className="equipe-lista-nome equipe-lista-nome-offline">{p.nome}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
             </>
           )}
