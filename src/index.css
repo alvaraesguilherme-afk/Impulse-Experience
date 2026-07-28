@@ -327,6 +327,22 @@ body {
   margin-bottom: 24px;
 }
 
+.topo-minimal {
+  margin-bottom: 8px;
+}
+
+.topo-saudacao {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.topo-avatar-pequeno {
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+}
+
 .topo h2 {
   font-family: var(--font-heading);
   font-weight: 800;

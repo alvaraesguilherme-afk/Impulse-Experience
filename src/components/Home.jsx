@@ -11,12 +11,12 @@ export default function Home({ usuario, onSair }) {
 
   return (
     <div className="tela">
-      <header className="topo">
+      <header className="topo topo-minimal">
         <div className="topo-usuario">
           {usuario.foto_url
-            ? <img src={usuario.foto_url} alt="" className="topo-avatar" />
-            : <span className="topo-avatar topo-avatar-vazio" aria-hidden="true">{usuario.nome.charAt(0).toUpperCase()}</span>}
-          <h2>Olá, {usuario.nome}</h2>
+            ? <img src={usuario.foto_url} alt="" className="topo-avatar topo-avatar-pequeno" />
+            : <span className="topo-avatar topo-avatar-pequeno topo-avatar-vazio" aria-hidden="true">{usuario.nome.charAt(0).toUpperCase()}</span>}
+          <span className="topo-saudacao">Olá, {usuario.nome}</span>
         </div>
         <button className="btn-sair" onClick={onSair}>Sair</button>
       </header>
