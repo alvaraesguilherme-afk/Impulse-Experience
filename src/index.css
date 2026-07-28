@@ -236,6 +236,47 @@ body {
   position: relative;
 }
 
+.autocomplete-lista {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 220px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+}
+
+.autocomplete-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item:focus-visible {
+  background: var(--accent-bg);
+  color: var(--accent-light);
+}
+
+.autocomplete-vazio {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
 .campo-pin-wrap .pin-input {
   padding-right: 48px;
 }
