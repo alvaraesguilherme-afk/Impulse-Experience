@@ -73,6 +73,14 @@ export default function App() {
     if (usuario?.genero === 'ambos') localStorage.setItem(CHAVE_GRUPO, g)
   }
 
+  function atualizarFoto(fotoUrl) {
+    const atualizado = { ...usuario, foto_url: fotoUrl }
+    setUsuario(atualizado)
+    if (localStorage.getItem(CHAVE_SESSAO)) {
+      localStorage.setItem(CHAVE_SESSAO, JSON.stringify(atualizado))
+    }
+  }
+
   if (splash) return <Splash saindo={splashSaindo} />
   if (!usuario) {
     return telaAuth === 'cadastro'
@@ -84,7 +92,7 @@ export default function App() {
   const podeAlternarGrupo = usuario.genero === 'ambos'
 
   function conteudo() {
-    if (aba === 'perfil') return <Perfil usuario={usuario} />
+    if (aba === 'perfil') return <Perfil usuario={usuario} editavel onFotoAtualizada={atualizarFoto} />
     if (aba === 'config') {
       return <Config usuario={usuario} onSair={sair} grupoAtivo={grupoAtivo} podeAlternarGrupo={podeAlternarGrupo} onMudarGrupo={mudarGrupo} />
     }

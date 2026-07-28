@@ -624,6 +624,27 @@ body {
   font-size: 32px;
 }
 
+.perfil-avatar-grande-wrap {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.perfil-avatar-grande-wrap .perfil-avatar-editar {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-tela);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .perfil-nome-grande {
   font-family: var(--font-heading);
   font-weight: 800;
