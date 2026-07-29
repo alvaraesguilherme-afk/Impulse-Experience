@@ -633,15 +633,20 @@ body {
 
 [data-grupo="feminino"] .modulo-card {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.15)),
+    radial-gradient(ellipse 120% 140% at 50% 50%, transparent 35%, rgba(120, 20, 60, 0.16) 100%),
+    linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1)),
     url('/marmore-textura.jpg');
-  background-size: cover;
-  background-position: 30% 55%;
-  border: 1px solid rgba(219, 39, 119, 0.25);
+  background-size: cover, cover, cover;
+  background-position: center, 40% 70%, 40% 70%;
+  border: 1px solid rgba(176, 23, 96, 0.3);
   box-shadow:
-    0 14px 30px rgba(219, 39, 119, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -2px 5px rgba(219, 39, 119, 0.08);
+    0 12px 24px rgba(120, 20, 60, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+[data-grupo="feminino"] .modulo-icone {
+  background: linear-gradient(135deg, #F472B6, #B01760 65%, #7A0E42);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45), 0 4px 12px rgba(176, 23, 96, 0.45);
 }
 
 [data-grupo="masculino"] .modulo-card {
