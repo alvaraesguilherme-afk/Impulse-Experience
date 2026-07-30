@@ -6,7 +6,7 @@ const MODULOS = [
   {
     id: 'apoio',
     nome: 'Apoio',
-    desc: 'Recepção, chamada e tarefas',
+    desc: 'Limpeza e organização da chácara',
     icone: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
@@ -52,7 +52,7 @@ const MODULOS = [
 ]
 
 const VERSICULOS = [
-  { texto: 'O Senhor é o meu pastor, nada me faltará.', ref: 'Salmos 23:1' },
+  { texto: 'Renovam-se as forças dos que esperam no Senhor; voam como águias.', ref: 'Isaías 40:31' },
   { texto: 'Tudo posso naquele que me fortalece.', ref: 'Filipenses 4:13' },
   { texto: 'O Senhor é a minha luz e a minha salvação; a quem temerei?', ref: 'Salmos 27:1' },
   { texto: 'Entrega o teu caminho ao Senhor; confia nele, e ele o fará.', ref: 'Salmos 37:5' },
