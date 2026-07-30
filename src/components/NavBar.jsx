@@ -11,9 +11,18 @@ function NavIcon({ id, active }) {
   return icons[id] || null
 }
 
-export default function NavBar({ itens, ativa, onMudar }) {
+export default function NavBar({ itens, ativa, onMudar, usuario }) {
   return (
     <div className="nav-mobile">
+      <div className="nav-grommet" aria-hidden="true" />
+      <div className="nav-credencial">
+        {usuario?.foto_url
+          ? <img src={usuario.foto_url} alt="" className="nav-credencial-foto" />
+          : <span className="nav-credencial-foto topo-avatar-vazio" aria-hidden="true">{usuario?.nome?.charAt(0).toUpperCase()}</span>}
+        <span className="nav-credencial-nome">{usuario?.nome}</span>
+        <span className="nav-credencial-cargo">{usuario?.is_supervisor ? 'Supervisor' : 'Staff'}</span>
+      </div>
+      <div className="nav-perfuracao" aria-hidden="true" />
       {itens.map(item => {
         const active = ativa === item.id
         return (

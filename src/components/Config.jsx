@@ -3,7 +3,7 @@ import GrupoSwitcher from './GrupoSwitcher'
 
 const VERSAO_APP = '1.0.0'
 
-export default function Config({ usuario, onSair, grupoAtivo, podeAlternarGrupo, onMudarGrupo, onRecarregar }) {
+export default function Config({ usuario, onSair, grupoAtivo, podeAlternarGrupo, onMudarGrupo, onRecarregar, versaoPc, onAlternarVersaoPc }) {
   const [recarregando, setRecarregando] = useState(false)
   const [mensagem, setMensagem] = useState('')
 
@@ -35,6 +35,22 @@ export default function Config({ usuario, onSair, grupoAtivo, podeAlternarGrupo,
           {recarregando ? 'Atualizando...' : 'Atualizar dados'}
         </button>
         {mensagem && <span className="config-mensagem">{mensagem}</span>}
+      </div>
+
+      <div className="config-bloco">
+        <h3>Exibição</h3>
+        <div className="config-linha">
+          <span>Versão atual</span>
+          <span className="config-valor">{versaoPc ? 'PC' : 'Celular'}</span>
+        </div>
+        <button className="btn-recarregar" onClick={onAlternarVersaoPc}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          {versaoPc ? 'Mudar para versão de celular' : 'Mudar para versão de PC'}
+        </button>
       </div>
 
       {podeAlternarGrupo && (

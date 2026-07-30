@@ -75,6 +75,224 @@ body {
   min-height: 100vh;
 }
 
+/* Fora da versao PC, acima de 560px o app vira uma moldura central de 480px
+   (mesma largura da nav-mobile), em vez de esticar por toda a tela. */
+@media (min-width: 560px) {
+  :root:not([data-versao="pc"]) body {
+    background: #050506;
+  }
+
+  :root:not([data-versao="pc"]) #root {
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 40px 100px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* Versao PC: a nav vira uma coluna de crachas de bastidor (nao um dashboard
+   generico) e o conteudo reaproveita as texturas reais de madeira/marmore
+   que os cards de modulo ja usam. Ativada manualmente em Config, independente
+   do tamanho da tela. */
+:root[data-versao="pc"] .app-shell {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+:root[data-versao="pc"] .nav-mobile {
+  position: sticky;
+  order: -1;
+  top: 0;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  width: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  height: 100vh;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 24px 14px;
+  border-top: none;
+  border-right: 1px solid var(--border);
+}
+
+/* Cracha de equipe no topo da coluna: mesma foto de perfil clicavel do app */
+.nav-grommet {
+  display: none;
+}
+
+:root[data-versao="pc"] .nav-grommet {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #dcdcdc, #7d7d7d 75%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45);
+  margin: 0 auto 14px;
+}
+
+.nav-credencial {
+  display: none;
+}
+
+:root[data-versao="pc"] .nav-credencial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.nav-credencial-foto {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-strong);
+  font-size: 18px;
+}
+
+.nav-credencial-nome {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.nav-credencial-cargo {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  background: var(--accent-bg);
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.nav-perfuracao {
+  display: none;
+}
+
+:root[data-versao="pc"] .nav-perfuracao {
+  display: block;
+  width: 100%;
+  border-top: 1px dashed var(--border);
+  margin: 16px 0;
+}
+
+:root[data-versao="pc"] .nav-item {
+  flex: none;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  padding: 9px 12px;
+  border-radius: 4px 14px 14px 4px;
+  border-left: 3px solid transparent;
+}
+
+:root[data-versao="pc"] .nav-item-active {
+  background: var(--accent-bg);
+  border-left-color: var(--accent);
+}
+
+:root[data-versao="pc"] .nav-icon {
+  height: auto;
+}
+
+:root[data-versao="pc"] .nav-indicator {
+  display: none;
+}
+
+:root[data-versao="pc"] .tela {
+  flex: 1;
+  min-height: 100vh;
+  max-width: none;
+  padding: 40px 48px 48px;
+}
+
+/* A saudacao some no PC: a foto e o nome ja ficam fixos no cracha da coluna */
+:root[data-versao="pc"] .topo-home {
+  display: none;
+}
+
+/* No PC o mural do versiculo ganha mais respiro, mesma placa. */
+:root[data-versao="pc"] .versiculo-dia {
+  padding: 26px 30px;
+  margin-bottom: 32px;
+}
+
+:root[data-versao="pc"] .modulos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+/* Pequeno rebite no canto do card, pra ler como uma placa de estacao
+   pendurada, nao um card de SaaS. Usa ::after pra nao brigar com o
+   brilho que o card ja tem no ::before. */
+.modulo-card::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f2f2f2, #8a8a8a 70%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* No PC a equipe nao fica dentro do card recolhivel: e so o titulo e os
+   crachas soltos, ja separados por online/offline. */
+.equipe-titulo-pc {
+  display: none;
+}
+
+:root[data-versao="pc"] .equipe-titulo-pc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+:root[data-versao="pc"] .equipe-titulo-pc h3 {
+  margin-bottom: 0;
+}
+
+:root[data-versao="pc"] .equipe-secao-titulo {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* No PC os crachas ficam maiores, com mais respiro entre eles. */
+:root[data-versao="pc"] .equipe-lista {
+  gap: 18px;
+  padding: 10px 0 4px;
+}
+
+:root[data-versao="pc"] .equipe-lista-item {
+  width: 92px;
+  padding: 16px 8px 10px;
+}
+
+:root[data-versao="pc"] .equipe-lista-avatar {
+  width: 42px;
+  height: 42px;
+}
+
+:root[data-versao="pc"] .equipe-lista-nome {
+  font-size: 11px;
+  margin-top: 8px;
+}
+
 .tela {
   min-height: 100vh;
   padding: 24px 20px 110px;
@@ -775,32 +993,59 @@ body {
   color: var(--text-muted);
 }
 
+/* Equipe e um quadro de crachas em qualquer tamanho de tela: cada pessoa e
+   uma fichinha presa com pino, levemente torta, em vez de uma lista comum. */
 .equipe-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   list-style: none;
   margin: 0;
-  padding: 0 8px 8px;
+  padding: 6px 0 6px;
 }
 
 .equipe-lista-item {
-  width: 100%;
+  position: relative;
+  width: 78px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 10px 8px;
-  background: none;
-  border: none;
-  border-top: 1px solid var(--border);
+  gap: 0;
+  padding: 14px 6px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px 4px 9px 9px;
   color: var(--text);
   cursor: pointer;
-  text-align: left;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16);
+}
+
+.equipe-lista li:nth-child(5n+1) .equipe-lista-item { transform: rotate(-2.5deg); }
+.equipe-lista li:nth-child(5n+2) .equipe-lista-item { transform: rotate(2deg); }
+.equipe-lista li:nth-child(5n+3) .equipe-lista-item { transform: rotate(-1.5deg); }
+.equipe-lista li:nth-child(5n+4) .equipe-lista-item { transform: rotate(2.2deg); }
+.equipe-lista li:nth-child(5n+5) .equipe-lista-item { transform: rotate(-1.8deg); }
+
+.equipe-lista-item::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--accent-light), var(--accent) 75%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
 }
 
 .equipe-lista-avatar {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   object-fit: cover;
-  font-size: 12px;
+  font-size: 13px;
   flex-shrink: 0;
 }
 
@@ -829,8 +1074,9 @@ body {
 }
 
 .equipe-lista-nome {
-  font-size: 14px;
+  font-size: 10.5px;
   color: var(--text-secondary);
+  margin-top: 7px;
 }
 
 .home-marca-gradiente {
@@ -839,18 +1085,58 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* O versiculo do dia e um mural entalhado na mesma madeira/marmore dos
+   cards de modulo, em qualquer tamanho de tela. */
 .versiculo-dia {
-  font-size: 13px;
-  font-style: italic;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin: -10px 0 24px;
+  font-size: clamp(14px, 3.8vw, 18px);
+  font-style: normal;
+  font-weight: 800;
+  font-family: var(--font-heading);
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0 0 24px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 22px rgba(0, 0, 0, 0.22);
 }
 
 .versiculo-ref {
+  display: block;
+  margin-top: 10px;
+  font-size: 10.5px;
   font-style: normal;
-  font-weight: 600;
-  color: var(--text-faint);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+[data-grupo="masculino"] .versiculo-dia {
+  background-image:
+    linear-gradient(rgba(20, 10, 4, 0.58), rgba(20, 10, 4, 0.68)),
+    url('/madeira-textura.jpg');
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(196, 130, 74, 0.32);
+  color: #FDF6EC;
+}
+
+[data-grupo="masculino"] .versiculo-ref {
+  color: #E8C79E;
+}
+
+[data-grupo="feminino"] .versiculo-dia {
+  background-image:
+    radial-gradient(ellipse 120% 140% at 50% 50%, transparent 35%, rgba(120, 20, 60, 0.16) 100%),
+    linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.68)),
+    url('/marmore-textura.jpg');
+  background-size: cover, cover, cover;
+  background-position: center, 40% 70%, 40% 70%;
+  border: 1px solid rgba(176, 23, 96, 0.3);
+  color: #3B1626;
+}
+
+[data-grupo="feminino"] .versiculo-ref {
+  color: #B01760;
 }
 
 .btn-sair {
@@ -899,6 +1185,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.foto-ampliada-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+  cursor: pointer;
+}
+
+.foto-ampliada-img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 16px;
+  object-fit: contain;
 }
 
 .perfil-nome-grande {

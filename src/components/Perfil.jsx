@@ -12,6 +12,7 @@ const TAMANHO_MAX_FOTO = 5 * 1024 * 1024
 export default function Perfil({ usuario, onVoltar, editavel, onFotoAtualizada, online }) {
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState('')
+  const [fotoAberta, setFotoAberta] = useState(false)
 
   async function trocarFoto(e) {
     const arquivo = e.target.files?.[0]
@@ -62,25 +63,32 @@ export default function Perfil({ usuario, onVoltar, editavel, onFotoAtualizada, 
       <section className="perfil-secao">
         {editavel ? (
           <>
-            <label htmlFor="perfil-foto" className="perfil-avatar-grande-wrap">
+            <div
+              className="perfil-avatar-grande-wrap"
+              onClick={() => usuario.foto_url && setFotoAberta(true)}
+            >
               {usuario.foto_url
                 ? <img src={usuario.foto_url} alt="" className="perfil-avatar-grande" />
                 : <span className="perfil-avatar-grande topo-avatar-vazio" aria-hidden="true">{usuario.nome.charAt(0).toUpperCase()}</span>}
-              <span className="perfil-avatar-editar" aria-hidden="true">
+              <label
+                htmlFor="perfil-foto"
+                className="perfil-avatar-editar"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {enviando ? '…' : (
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 20h9" />
                     <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
                   </svg>
                 )}
-              </span>
-            </label>
+              </label>
+            </div>
             <input id="perfil-foto" type="file" accept="image/*" onChange={trocarFoto} className="sr-only" disabled={enviando} />
             {erro && <p className="login-erro" role="alert">{erro}</p>}
           </>
         ) : (
           usuario.foto_url
-            ? <img src={usuario.foto_url} alt="" className="perfil-avatar-grande" />
+            ? <img src={usuario.foto_url} alt="" className="perfil-avatar-grande" onClick={() => setFotoAberta(true)} style={{ cursor: 'pointer' }} />
             : <span className="perfil-avatar-grande topo-avatar-vazio" aria-hidden="true">{usuario.nome.charAt(0).toUpperCase()}</span>
         )}
         <h3 className="perfil-nome-grande">{usuario.nome}</h3>
@@ -97,8 +105,14 @@ export default function Perfil({ usuario, onVoltar, editavel, onFotoAtualizada, 
 
       <section className="secao">
         <h3>Papel</h3>
-        <p className="secao-sub">{usuario.is_supervisor ? 'Supervisor' : 'Staff'}</p>
+        <p className="secao-sub">{usuario.is_supervisor ? 'Supervisor do sistema' : 'Staff'}</p>
       </section>
+
+      {fotoAberta && usuario.foto_url && (
+        <div className="foto-ampliada-overlay" onClick={() => setFotoAberta(false)}>
+          <img src={usuario.foto_url} alt="" className="foto-ampliada-img" />
+        </div>
+      )}
     </div>
   )
 }

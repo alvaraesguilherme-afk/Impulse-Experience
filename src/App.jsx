@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
-import { aplicarPreferencias, grupoPreviewSalvo, setGrupoPreview, limparGrupoPreview } from './lib/preferencias'
+import { aplicarPreferencias, grupoPreviewSalvo, setGrupoPreview, limparGrupoPreview, versaoPcSalva, setVersaoPc, aplicarVersaoPc } from './lib/preferencias'
 import { usePresenca } from './lib/presenca'
 import Splash from './components/Splash'
 import ToastEntradas from './components/ToastEntradas'
@@ -52,6 +52,7 @@ export default function App() {
   const [telaAuth, setTelaAuth] = useState('login')
   const [splash, setSplash] = useState(true)
   const [splashSaindo, setSplashSaindo] = useState(false)
+  const [versaoPc, setVersaoPcLocal] = useState(versaoPcSalva)
   const { online, toasts } = usePresenca(usuario)
 
   useEffect(() => {
@@ -59,6 +60,16 @@ export default function App() {
     const t2 = setTimeout(() => setSplash(false), 3000)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [])
+
+  useEffect(() => {
+    aplicarVersaoPc(versaoPc)
+  }, [versaoPc])
+
+  function alternarVersaoPc() {
+    const nova = !versaoPc
+    setVersaoPc(nova)
+    setVersaoPcLocal(nova)
+  }
 
   function entrar(dados, lembrar = true) {
     if (lembrar) {
@@ -147,19 +158,21 @@ export default function App() {
           podeAlternarGrupo={podeAlternarGrupo}
           onMudarGrupo={mudarGrupo}
           onRecarregar={recarregarUsuario}
+          versaoPc={versaoPc}
+          onAlternarVersaoPc={alternarVersaoPc}
         />
       )
     }
-    if (aba === 'home') return <Home usuario={usuario} grupoAtivo={grupoAtivo} online={online} />
+    if (aba === 'home') return <Home usuario={usuario} grupoAtivo={grupoAtivo} online={online} versaoPc={versaoPc} />
     if (usuario.is_supervisor) return <Supervisor usuario={usuario} grupoAtivo={grupoAtivo} />
-    return <Home usuario={usuario} grupoAtivo={grupoAtivo} online={online} />
+    return <Home usuario={usuario} grupoAtivo={grupoAtivo} online={online} versaoPc={versaoPc} />
   }
 
   return (
     <div className="app-shell">
       <ToastEntradas toasts={toasts} />
       {conteudo()}
-      <NavBar itens={nav} ativa={aba} onMudar={setAba} />
+      <NavBar itens={nav} ativa={aba} onMudar={setAba} usuario={usuario} />
     </div>
   )
 }
